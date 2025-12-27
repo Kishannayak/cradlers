@@ -46,7 +46,7 @@ npm run dev
 ```
 app/
 ├── (auth)/login/          # OTP login page
-├── (commerce)/
+├── (shop)/
 │   ├── products/          # Product listing
 │   ├── products/[id]/     # Product detail
 │   ├── cart/              # Shopping cart
@@ -54,15 +54,18 @@ app/
 └── account/                # User account pages
 
 lib/
-├── api/                   # API client with logging
-├── types/                 # TypeScript types (snake_case for FastAPI)
-├── store/                 # Zustand stores
-├── utils/                 # Utility functions
-└── constants/             # Constants and age ranges
+├── backend/               # API client with logging
+├── user-data/             # TypeScript types (snake_case for FastAPI)
+├── user-state/            # Zustand stores
+├── helpers/               # Utility functions
+└── settings/              # Constants and age ranges
 
 components/
-├── ui/                    # Reusable UI components
-├── product/               # Product components
+├── buttons/               # Button components
+├── cards/                 # Card components
+├── forms/                 # Form components
+├── displays/              # Display components (badges, loading, etc.)
+├── shop/                  # Shop-specific components
 └── layout/                # Layout components
 ```
 
@@ -74,7 +77,7 @@ All API interactions are logged to the console with:
 - Endpoint URL
 - JSON payload
 
-The API client returns mock data for development. When the FastAPI backend is ready, update `lib/api/client.ts` to make real API calls.
+The API client sends real HTTP requests to the backend (so backend engineers can see them) but returns mock data to the frontend (so the frontend works even if the backend isn't ready).
 
 ## Design Principles
 
@@ -98,7 +101,7 @@ The following features are visually present but disabled:
 
 The frontend is designed to work with a FastAPI backend. All API payloads use `snake_case` to match Python/Pydantic conventions.
 
-Update the `API_BASE_URL` in `lib/api/client.ts` when connecting to the backend:
+Update the `API_BASE_URL` in `lib/backend/client.ts` when connecting to the backend:
 
 ```typescript
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
@@ -114,4 +117,3 @@ npm start
 ## License
 
 Private - Cradlers
-
