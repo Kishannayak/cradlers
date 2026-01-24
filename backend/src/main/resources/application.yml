@@ -1,0 +1,25 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: cradlers-backend
+  
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/cradlers
+      database: cradlers
+      # For MongoDB Atlas (cloud), use:
+      # uri: mongodb+srv://username:password@cluster.mongodb.net/cradlers
+
+jwt:
+  secret: your-secret-key-change-this-in-production-use-a-long-random-string
+  expiration: 86400000
+
+cors:
+  allowed-origins: http://localhost:3000
+
+logging:
+  level:
+    com.cradlers: DEBUG
+    org.springframework.web: INFO

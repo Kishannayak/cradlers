@@ -57,10 +57,8 @@ function getAuthToken(): string | null {
   return null;
 }
 
-// sendApiRequest function: Sends actual HTTP request to backend (fire and forget)
-// This lets the backend engineer see what requests are being made
-// We don't wait for the response - we just fire it off and return mock data
-async function sendApiRequest(options: ApiRequestOptions): Promise<void> {
+// sendApiRequest function: Sends actual HTTP request to backend and returns response
+async function sendApiRequest<T = unknown>(options: ApiRequestOptions): Promise<T> {
   // Destructure: pull out the individual values from the options object
   const { method, endpoint, payload, queryParams } = options;
 
@@ -110,12 +108,22 @@ async function sendApiRequest(options: ApiRequestOptions): Promise<void> {
     fetchOptions.body = JSON.stringify(payload); // Convert object to JSON string
   }
 
-  // Send the request but don't wait for response (fire and forget)
-  // We catch errors silently so frontend doesn't break if backend isn't ready
-  fetch(fullUrl, fetchOptions).catch(() => {
-    // Silently ignore errors - backend might not be running yet
-    // The request was still sent, which is what we want
-  });
+  // Send the request and wait for response
+  const response = await fetch(fullUrl, fetchOptions);
+  
+  // If response is not ok, throw an error
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({ error: "Request failed" }));
+    throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+  }
+  
+  // For requests that don't return data (like DELETE), return void
+  if (response.status === 204 || method === "DELETE") {
+    return undefined as T;
+  }
+  
+  // Parse and return JSON response
+  return response.json() as Promise<T>;
 }
 
 // logApiRequest function: Prints API request details to the browser console
@@ -160,9 +168,6 @@ async function logApiRequest(options: ApiRequestOptions): Promise<void> {
   }
   // Close the separator
   console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-
-  // Also send the actual HTTP request to backend (so backend engineer can see it)
-  await sendApiRequest(options);
 }
 
 // Mock data generators
@@ -346,34 +351,47 @@ export const api = {
 
   // requestOTP: Sends a one-time password (OTP) code to the user's phone
   async requestOTP(request: OTPLoginRequest): Promise<void> {
-    // Log and send request to backend (so backend engineer can see it)
+    // Log the request
     await logApiRequest({
       method: "POST", // Creating/sending the OTP
       endpoint: "/api/auth/otp", // OTP endpoint
       payload: request, // Contains the phone number
+    });
+    
+    // Send actual request to backend
+    await sendApiRequest({
+      method: "POST",
+      endpoint: "/api/auth/otp",
+      payload: request,
     });
     // Returns nothing - code is sent via SMS
   },
 
   // verifyOTP: Checks if the code the user entered is correct
   async verifyOTP(request: OTPVerifyRequest): Promise<OTPVerifyResponse> {
-    // Log and send request to backend (so backend engineer can see it)
+    // Log the request
     await logApiRequest({
       method: "POST", // Verifying the code
       endpoint: "/api/auth/otp/verify", // OTP verification endpoint
       payload: request, // Contains phone number and the code they entered
     });
 
-    // Return mock data (frontend uses this, backend still sees the request)
+    // Send actual request to backend and get response
+    // Backend returns snake_case (created_at) matching frontend interface
+    const response = await sendApiRequest<OTPVerifyResponse>({
+      method: "POST",
+      endpoint: "/api/auth/otp/verify",
+      payload: request,
+    });
+
+    // Backend response already matches frontend interface (snake_case)
+    // Just ensure addresses array is present
     return {
       user: {
-        id: "user-1", // Mock user ID
-        phone: request.phone, // The phone number they used
-        email: "user@example.com", // Mock email
-        addresses: [], // Empty addresses array
-        created_at: new Date().toISOString(), // Account creation date
+        ...response.user,
+        addresses: response.user.addresses || [], // Ensure addresses array exists
       },
-      token: "mock-jwt-token", // Mock authentication token (in real app, this proves they're logged in)
+      token: response.token,
     };
   },
 
