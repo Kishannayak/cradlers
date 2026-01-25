@@ -19,9 +19,9 @@ export const Badge: React.FC<BadgeProps> = ({
 }) => {
   // variants object: Different color combinations for different badge types
   const variants = {
-    default: "bg-gray-100 text-gray-700", // Gray background, dark gray text (neutral)
-    success: "bg-green-100 text-green-700", // Green background, dark green text (positive/success)
-    warning: "bg-yellow-100 text-yellow-700", // Yellow background, dark yellow text (warning/caution)
+    default: "bg-gradient-primary text-primary-700", // Lavender gradient background, darker purple text
+    success: "bg-success-100 text-success-600", // Green background, dark green text (positive/success)
+    warning: "bg-warning-100 text-warning-600", // Yellow background, dark yellow text (warning/caution)
     disabled: "bg-gray-200 text-gray-500", // Light gray background, gray text (disabled/inactive)
   };
 

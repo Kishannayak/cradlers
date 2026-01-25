@@ -22,7 +22,7 @@ import { formatPrice, calculateSubtotal } from "@/lib/helpers/cart";
 // Import UI components
 import { Button } from "@/components/buttons/Button";
 import { EmptyState } from "@/components/displays/EmptyState";
-import { Loading } from "@/components/displays/Loading";
+import { BabyLoader } from "@/components/displays/BabyLoader";
 
 // CartPage component: The shopping cart page
 export default function CartPage() {
@@ -202,7 +202,7 @@ export default function CartPage() {
                     {/* Quantity display: shows current quantity or loading spinner */}
                     <span className="w-8 text-center font-medium text-gray-900">
                       {updating === item.id ? (
-                        <Loading size="sm" /> // Show spinner while updating
+                        <BabyLoader size="sm" /> // Show spinner while updating
                       ) : (
                         item.quantity // Show quantity number
                       )}

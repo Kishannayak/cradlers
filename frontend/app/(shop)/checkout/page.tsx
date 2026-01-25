@@ -22,7 +22,7 @@ import { formatPrice, calculateSubtotal } from "@/lib/helpers/cart";
 import { Button } from "@/components/buttons/Button";
 import { Input } from "@/components/forms/Input";
 import { Modal } from "@/components/forms/Modal";
-import { Loading } from "@/components/displays/Loading";
+import { BabyLoader } from "@/components/displays/BabyLoader";
 
 // CheckoutPage component: The checkout page
 export default function CheckoutPage() {
@@ -187,7 +187,7 @@ export default function CheckoutPage() {
           {loading ? (
             // If loading, show spinner
             <div className="flex justify-center py-8">
-              <Loading />
+              <BabyLoader size="md" />
             </div>
           ) : addresses.length === 0 ? (
             // If no addresses, show message with button to add one

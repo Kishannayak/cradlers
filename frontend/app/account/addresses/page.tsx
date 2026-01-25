@@ -19,7 +19,7 @@ import { Address } from "@/lib/user-data/api";
 import { Button } from "@/components/buttons/Button";
 import { Input } from "@/components/forms/Input";
 import { Modal } from "@/components/forms/Modal";
-import { Loading } from "@/components/displays/Loading";
+import { BabyLoader } from "@/components/displays/BabyLoader";
 import { EmptyState } from "@/components/displays/EmptyState";
 
 // AddressesPage component: The addresses management page
@@ -170,7 +170,7 @@ export default function AddressesPage() {
       {loading ? (
         // If loading, show spinner
         <div className="flex justify-center py-24">
-          <Loading size="lg" />
+          <BabyLoader size="lg" />
         </div>
       ) : addresses.length === 0 ? (
         // If no addresses, show empty state

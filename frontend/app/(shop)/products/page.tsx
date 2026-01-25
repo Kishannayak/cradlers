@@ -15,8 +15,8 @@ import { api } from "@/lib/backend/client";
 import { AGE_RANGES, formatAgeRange } from "@/lib/settings/age-ranges";
 // Import ProductCard component to display each product
 import { ProductCard } from "@/components/shop/ProductCard";
-// Import Loading component for loading state
-import { Loading } from "@/components/displays/Loading";
+// Import BabyLoader component for loading state
+import { BabyLoader } from "@/components/displays/BabyLoader";
 // Import EmptyState component for when no products found
 import { EmptyState } from "@/components/displays/EmptyState";
 // Import Badge component (not used here but imported for potential use)
@@ -90,10 +90,10 @@ export default function ProductsPage() {
           <button
             onClick={() => setSelectedAgeRange(null)} // Clear filter when clicked
             className={`px-6 py-3 rounded-xl font-medium transition-smooth ${
-              // Conditional styling: dark if selected, light if not
+              // Conditional styling: gradient if selected, light if not
               selectedAgeRange === null
-                ? "bg-gray-900 text-white" // Selected: dark background, white text
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200" // Not selected: light background, darker on hover
+                ? "bg-gradient-purple text-white shadow-baby" // Selected: darker purple gradient, white text
+                : "bg-primary-100 text-primary-700 hover:bg-primary-200" // Not selected: light lavender, darker on hover
             }`}
           >
             All Ages
@@ -108,8 +108,8 @@ export default function ProductsPage() {
                 // Check if this age range is currently selected
                 selectedAgeRange?.min_months === range.value.min_months &&
                 selectedAgeRange?.max_months === range.value.max_months
-                  ? "bg-gray-900 text-white" // Selected: dark style
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200" // Not selected: light style
+                  ? "bg-gradient-purple text-white shadow-baby" // Selected: darker purple gradient
+                  : "bg-primary-100 text-primary-700 hover:bg-primary-200" // Not selected: light lavender style
               }`}
             >
               {range.label} {/* Display age range label like "0-6 months" */}
@@ -125,7 +125,7 @@ export default function ProductsPage() {
         <div className="flex justify-center py-24">
           {/* flex justify-center = center horizontally
               py-24 = vertical padding */}
-          <Loading size="lg" /> {/* Large loading spinner */}
+          <BabyLoader size="lg" /> {/* Large loading spinner */}
         </div>
       ) : products.length === 0 ? (
         // If not loading but no products found, show empty state

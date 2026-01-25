@@ -31,12 +31,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     // className="group" enables group hover effects (image zoom on hover)
     <Card href={`/products/${product.id}`} className="group">
       {/* Image container: square aspect ratio, relative positioning for image */}
-      <div className="relative aspect-square w-full overflow-hidden bg-gray-100">
+      <div className="relative aspect-square w-full overflow-hidden bg-primary-50">
         {/* relative = allows absolute positioning of child (the image)
             aspect-square = maintains 1:1 aspect ratio (square)
             w-full = full width
             overflow-hidden = hide image parts that go outside
-            bg-gray-100 = light gray background (shows while image loads) */}
+            bg-primary-50 = soft lavender background (matching GIF) */}
 
         {/* Only show image if product has at least one image */}
         {product.images[0] && (
@@ -66,27 +66,29 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
 
         {/* Product name: heading */}
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+        <h3 className="text-lg font-semibold text-primary-700 mb-2 line-clamp-2">
           {product.name}
           {/* text-lg = large text
               font-semibold = semi-bold weight
+              text-primary-700 = soft purple (matching GIF)
               line-clamp-2 = limit to 2 lines, add ellipsis if longer */}
         </h3>
 
         {/* Product description */}
-        <p className="text-sm text-gray-500 mb-4 line-clamp-2">
+        <p className="text-sm text-primary-600 mb-4 line-clamp-2">
           {product.description}
           {/* text-sm = small text
-              text-gray-500 = medium gray color
+              text-primary-600 = medium purple color (matching GIF)
               line-clamp-2 = limit to 2 lines */}
         </p>
 
         {/* Product price: formatted as currency */}
-        <p className="text-xl font-semibold text-gray-900">
+        <p className="text-xl font-semibold text-primary-700">
           {formatPrice(product.price)}
           {/* formatPrice converts number to "$49.99" format
               text-xl = extra large text
-              font-semibold = semi-bold */}
+              font-semibold = semi-bold
+              text-primary-700 = soft purple (matching GIF) */}
         </p>
       </div>
     </Card>

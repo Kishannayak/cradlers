@@ -20,7 +20,7 @@ import { Order } from "@/lib/user-data/api";
 import { formatPrice } from "@/lib/helpers/cart";
 // Import UI components
 import { Badge } from "@/components/displays/Badge";
-import { Loading } from "@/components/displays/Loading";
+import { BabyLoader } from "@/components/displays/BabyLoader";
 import { Button } from "@/components/buttons/Button";
 
 // OrderDetailPage component: The order detail page
@@ -90,7 +90,7 @@ export default function OrderDetailPage() {
     return (
       <div className="flex justify-center items-center min-h-screen">
         {/* min-h-screen = minimum height of full screen (centers spinner vertically) */}
-        <Loading size="lg" />
+        <BabyLoader size="lg" />
       </div>
     );
   }

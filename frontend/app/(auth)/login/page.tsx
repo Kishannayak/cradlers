@@ -16,7 +16,7 @@ import { useAuthStore } from "@/lib/user-state/auth-store";
 // Import UI components
 import { Button } from "@/components/buttons/Button";
 import { Input } from "@/components/forms/Input";
-import { Loading } from "@/components/displays/Loading";
+import { BabyLoader } from "@/components/displays/BabyLoader";
 
 // LoginPage component: The login page
 export default function LoginPage() {
@@ -98,7 +98,7 @@ export default function LoginPage() {
       </div>
 
       {/* Login form card */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-8">
+      <div className="bg-gradient-card rounded-2xl border border-primary-200 p-8 shadow-soft">
         {/* Conditional rendering: show phone form or OTP form */}
         {step === "phone" ? (
           // Step 1: Phone number form
@@ -127,7 +127,7 @@ export default function LoginPage() {
               disabled={loading || !phone}
               // Disable if loading or phone number is empty
             >
-              {loading ? <Loading size="sm" /> : "Send OTP"}
+              {loading ? <BabyLoader size="sm" /> : "Send OTP"}
               {/* Show spinner while loading, "Send OTP" otherwise */}
             </Button>
           </form>
@@ -183,7 +183,7 @@ export default function LoginPage() {
                 disabled={loading || otp.length !== 6}
                 // Disable if loading or OTP is not 6 digits
               >
-                {loading ? <Loading size="sm" /> : "Verify"}
+                {loading ? <BabyLoader size="sm" /> : "Verify"}
                 {/* Show spinner while loading, "Verify" otherwise */}
               </Button>
             </div>

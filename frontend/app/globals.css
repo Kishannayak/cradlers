@@ -10,14 +10,17 @@
 @layer base {
   /* Apply to all elements: set default border color */
   * {
-    @apply border-gray-200; /* All borders default to light gray */
+    border-color: rgb(217, 199, 240); /* All borders default to darker lavender (primary-100) */
   }
 
-  /* Body element: main page background and text styling */
+  /* Body element: main page background with gradient and text styling */
   body {
-    @apply bg-gray-50 text-gray-900 antialiased;
-    /* bg-gray-50 = very light gray background */
-    /* text-gray-900 = dark gray text (high contrast for readability) */
+    background: linear-gradient(135deg, #F3EDFF 0%, #FFF8F0 50%, #FFFFFF 100%);
+    background-attachment: fixed; /* Fixed gradient background */
+    min-height: 100vh; /* Ensure full height */
+    color: rgb(38, 38, 38); /* Professional dark gray text (gray-800) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     /* antialiased = smooth text rendering (makes text look crisp) */
 
     /* Font feature settings: enable kerning (spacing between letters) */
@@ -37,3 +40,5 @@
     transition-duration: 200ms;
   }
 }
+
+/* Baby Loader - Using GIF, no CSS animations needed */

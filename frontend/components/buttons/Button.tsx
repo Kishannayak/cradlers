@@ -1,5 +1,5 @@
 // Button component: A reusable button with different styles and sizes
-// This makes it easy to have consistent buttons throughout the app
+// Professional design with darker colors and gradients
 
 // Import React library (needed for all React components)
 import React from "react";
@@ -7,7 +7,7 @@ import React from "react";
 // ButtonProps interface: Defines what properties this button component accepts
 // extends React.ButtonHTMLAttributes means it can accept all standard HTML button attributes too
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "ghost"; // Optional: button style (dark, light, or transparent)
+  variant?: "primary" | "secondary" | "ghost" | "outline"; // Optional: button style
   size?: "sm" | "md" | "lg"; // Optional: button size (small, medium, or large)
   children: React.ReactNode; // Required: the text or content inside the button
 }
@@ -23,10 +23,11 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   // baseStyles: CSS classes that apply to all buttons regardless of variant/size
   const baseStyles =
-    "font-medium rounded-xl transition-smooth focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
-  // font-medium = medium weight text
+    "font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+  // font-semibold = semi-bold weight (professional)
   // rounded-xl = rounded corners
-  // transition-smooth = smooth animation when hovering/clicking
+  // transition-all = smooth animation for all properties
+  // duration-200 = 200ms transition
   // focus:outline-none = remove default browser outline
   // focus:ring-2 = add a ring when button is focused (keyboard navigation)
   // disabled:opacity-50 = make button semi-transparent when disabled
@@ -35,14 +36,17 @@ export const Button: React.FC<ButtonProps> = ({
   // variants object: Different color/styles for different button types
   const variants = {
     primary:
-      "bg-gray-900 text-white hover:bg-gray-800 focus:ring-gray-900 active:bg-gray-700",
-    // primary = dark button: black background, white text, darker on hover, even darker when clicked
+      "bg-gradient-purple text-white hover:opacity-90 focus:ring-primary-500 active:opacity-80 shadow-baby hover:shadow-baby-lg",
+    // primary = gradient purple button: darker purple gradient, white text
     secondary:
-      "bg-gray-100 text-gray-900 hover:bg-gray-200 focus:ring-gray-500 active:bg-gray-300",
-    // secondary = light button: light gray background, dark text, slightly darker on hover
+      "bg-gradient-secondary text-primary-700 hover:opacity-90 focus:ring-secondary-300 active:opacity-80 border border-secondary-200 shadow-soft",
+    // secondary = gradient peach button: peach gradient, purple text
     ghost:
-      "bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-gray-500 active:bg-gray-200",
-    // ghost = transparent button: no background, gray text, light background on hover
+      "bg-transparent text-primary-600 hover:bg-primary-100 focus:ring-primary-200 active:bg-primary-200",
+    // ghost = transparent button: no background, purple text, light purple background on hover
+    outline:
+      "bg-white text-primary-600 border-2 border-primary-500 hover:bg-gradient-soft focus:ring-primary-500 active:bg-primary-50",
+    // outline = outlined button: white background, purple border and text, gradient on hover
   };
 
   // sizes object: Different padding and text sizes

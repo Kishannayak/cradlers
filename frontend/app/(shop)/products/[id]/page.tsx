@@ -25,7 +25,7 @@ import { formatPrice } from "@/lib/helpers/cart";
 // Import UI components
 import { Button } from "@/components/buttons/Button";
 import { Badge } from "@/components/displays/Badge";
-import { Loading } from "@/components/displays/Loading";
+import { BabyLoader } from "@/components/displays/BabyLoader";
 
 // ProductDetailPage component: The product detail page
 export default function ProductDetailPage() {
@@ -97,7 +97,7 @@ export default function ProductDetailPage() {
     return (
       <div className="flex justify-center items-center min-h-screen">
         {/* min-h-screen = minimum height of full screen (centers spinner vertically) */}
-        <Loading size="lg" />
+        <BabyLoader size="lg" />
       </div>
     );
   }

@@ -22,7 +22,7 @@ import { formatPrice } from "@/lib/helpers/cart";
 // Import formatAgeRange (not used here but imported for potential use)
 import { formatAgeRange } from "@/lib/settings/age-ranges";
 // Import UI components
-import { Loading } from "@/components/displays/Loading";
+import { BabyLoader } from "@/components/displays/BabyLoader";
 import { EmptyState } from "@/components/displays/EmptyState";
 import { Badge } from "@/components/displays/Badge";
 
@@ -96,7 +96,7 @@ export default function OrdersPage() {
       {loading ? (
         // If loading, show spinner
         <div className="flex justify-center py-24">
-          <Loading size="lg" />
+          <BabyLoader size="lg" />
         </div>
       ) : orders.length === 0 ? (
         // If no orders, show empty state

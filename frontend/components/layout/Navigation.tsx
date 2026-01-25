@@ -1,5 +1,5 @@
 // Navigation component: The top navigation bar that appears on every page
-// Shows logo, menu links, cart count, and login/account link
+// Professional design with darker colors and gradient
 
 // "use client" directive: This component needs to run in the browser
 // Needed because we use hooks (usePathname) and state management
@@ -28,15 +28,16 @@ export const Navigation = () => {
   const cartItemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    // Navigation bar: sticky at top, with backdrop blur effect
-    <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-200">
+    // Navigation bar: sticky at top, with backdrop blur and gradient
+    <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-primary-200 shadow-soft">
       {/* sticky = stays at top when scrolling
           top-0 = stick to top of page
           z-40 = high z-index (appears above other content)
-          bg-white/80 = white background with 80% opacity (semi-transparent)
+          bg-white/95 = white background with 95% opacity (semi-transparent)
           backdrop-blur-md = blur the page content behind the nav
           border-b = bottom border
-          border-gray-200 = light gray border */}
+          border-primary-200 = darker lavender border
+          shadow-soft = subtle shadow */}
 
       {/* Container: centers content and limits width */}
       <div className="max-w-7xl mx-auto px-6">
@@ -54,11 +55,14 @@ export const Navigation = () => {
           {/* Logo/Home link */}
           <Link
             href="/" // Links to homepage
-            className="text-2xl font-bold text-gray-900 hover:text-gray-700 transition-smooth"
+            className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent hover:from-primary-700 hover:to-primary-800 transition-all duration-200"
             // text-2xl = extra large text
             // font-bold = bold weight
-            // hover:text-gray-700 = slightly lighter on hover
-            // transition-smooth = smooth color change
+            // bg-gradient-to-r = gradient from left to right
+            // from-primary-600 to-primary-700 = darker purple gradient
+            // bg-clip-text text-transparent = gradient text effect
+            // hover:from-primary-700 hover:to-primary-800 = darker gradient on hover
+            // transition-all = smooth color change
           >
             Cradlers {/* Brand name */}
           </Link>
@@ -70,11 +74,11 @@ export const Navigation = () => {
             {/* Products link */}
             <Link
               href="/products" // Links to products page
-              className={`text-sm font-medium transition-smooth ${
+              className={`text-sm font-medium transition-colors duration-200 ${
                 // Check if current page is products page
                 pathname?.startsWith("/products")
-                  ? "text-gray-900" // Dark text if on products page (active state)
-                  : "text-gray-600 hover:text-gray-900" // Gray text otherwise, darker on hover
+                  ? "text-primary-600" // Darker purple text if on products page (active state)
+                  : "text-gray-600 hover:text-primary-600" // Gray text otherwise, purple on hover
               }`}
             >
               Products
@@ -83,21 +87,23 @@ export const Navigation = () => {
             {/* Cart link with item count badge */}
             <Link
               href="/cart" // Links to cart page
-              className="relative text-sm font-medium text-gray-600 hover:text-gray-900 transition-smooth"
+              className="relative text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors duration-200"
               // relative = allows absolute positioning of badge
             >
               Cart
               {/* Show badge with item count if cart has items */}
               {cartItemCount > 0 && (
-                <span className="absolute -top-2 -right-2 w-5 h-5 bg-gray-900 text-white text-xs rounded-full flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 w-5 h-5 bg-gradient-purple text-white text-xs font-semibold rounded-full flex items-center justify-center shadow-baby">
                   {/* absolute = position relative to parent
                       -top-2 -right-2 = position slightly above and right of text
                       w-5 h-5 = 20px × 20px circle
-                      bg-gray-900 = dark background
+                      bg-gradient-purple = purple gradient background
                       text-white = white text
                       text-xs = extra small text
+                      font-semibold = semi-bold weight
                       rounded-full = perfect circle
-                      flex items-center justify-center = center the number */}
+                      flex items-center justify-center = center the number
+                      shadow-baby = soft shadow */}
                   {cartItemCount} {/* Display the count */}
                 </span>
               )}
@@ -108,11 +114,11 @@ export const Navigation = () => {
               // User is logged in - show Account link
               <Link
                 href="/account" // Links to account page
-                className={`text-sm font-medium transition-smooth ${
+                className={`text-sm font-medium transition-colors duration-200 ${
                   // Check if current page is account page
                   pathname?.startsWith("/account")
-                    ? "text-gray-900" // Dark text if on account page (active)
-                    : "text-gray-600 hover:text-gray-900" // Gray text otherwise
+                    ? "text-primary-600" // Darker purple text if on account page (active)
+                    : "text-gray-600 hover:text-primary-600" // Gray text otherwise, purple on hover
                 }`}
               >
                 Account
@@ -121,7 +127,7 @@ export const Navigation = () => {
               // User is not logged in - show Login link
               <Link
                 href="/login" // Links to login page
-                className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-smooth"
+                className="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors duration-200"
               >
                 Login
               </Link>
