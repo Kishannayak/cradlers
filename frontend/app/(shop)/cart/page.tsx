@@ -99,7 +99,7 @@ export default function CartPage() {
   // Main cart view
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
-      <h1 className="text-4xl font-bold text-gray-900 mb-12">Shopping Cart</h1>
+      <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-12">Shopping Cart</h1>
 
       {/* Grid layout: cart items on left, order summary on right */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -117,9 +117,10 @@ export default function CartPage() {
           {items.map((item) => (
             <div
               key={item.id} // Unique key for React
-              className="bg-white rounded-2xl border border-gray-200 p-6 flex gap-6"
-              // bg-white = white background
+              className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 flex gap-6"
+              // bg-white dark:bg-gray-800 = white background (light mode), dark gray (dark mode)
               // rounded-2xl = rounded corners
+              // border border-gray-200 dark:border-gray-700 = light border (light mode), dark border (dark mode)
               // p-6 = padding inside
               // flex = flexbox layout
               // gap-6 = space between image, info, and price
@@ -127,7 +128,7 @@ export default function CartPage() {
               {/* Product Image */}
               <Link
                 href={`/products/${item.product.id}`} // Link to product detail page
-                className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100"
+                className="relative w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-700"
                 // relative = allows absolute positioning of image
                 // w-24 h-24 = 96px × 96px square
                 // flex-shrink-0 = don't shrink when space is tight
@@ -154,13 +155,13 @@ export default function CartPage() {
                 {/* Product name: clickable link to product page */}
                 <Link
                   href={`/products/${item.product.id}`}
-                  className="text-lg font-semibold text-gray-900 hover:text-gray-700 transition-smooth mb-2"
+                  className="text-lg font-semibold text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-200 transition-smooth mb-2"
                 >
                   {item.product.name}
                 </Link>
 
                 {/* Product price per item */}
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
                   {formatPrice(item.product.price)}
                 </p>
 
@@ -179,7 +180,7 @@ export default function CartPage() {
                       }
                       disabled={updating === item.id || removing === item.id}
                       // Disable if this item is being updated or removed
-                      className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-smooth disabled:opacity-50"
+                      className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-smooth disabled:opacity-50"
                       // w-8 h-8 = 32px × 32px square button
                       // disabled:opacity-50 = make semi-transparent when disabled
                     >
@@ -200,7 +201,7 @@ export default function CartPage() {
                     </button>
 
                     {/* Quantity display: shows current quantity or loading spinner */}
-                    <span className="w-8 text-center font-medium text-gray-900">
+                    <span className="w-8 text-center font-medium text-gray-900 dark:text-gray-100">
                       {updating === item.id ? (
                         <BabyLoader size="sm" /> // Show spinner while updating
                       ) : (
@@ -214,7 +215,7 @@ export default function CartPage() {
                         handleUpdateQuantity(item.id, item.quantity + 1)
                       }
                       disabled={updating === item.id || removing === item.id}
-                      className="w-8 h-8 rounded-lg border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-smooth disabled:opacity-50"
+                      className="w-8 h-8 rounded-lg border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-smooth disabled:opacity-50"
                     >
                       {/* Plus icon */}
                       <svg
@@ -248,7 +249,7 @@ export default function CartPage() {
 
               {/* Item Total: price × quantity */}
               <div className="text-right">
-                <p className="text-lg font-semibold text-gray-900">
+                <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                   {formatPrice(item.product.price * item.quantity)}
                   {/* Calculate total: price per item × quantity */}
                 </p>
@@ -262,10 +263,10 @@ export default function CartPage() {
           {/* lg:col-span-1 = takes 1 of 3 columns on large screens */}
 
           {/* Summary card: sticky so it stays visible when scrolling */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-6 sticky top-24">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sticky top-24">
             {/* sticky top-24 = sticks to top when scrolling (24 = 96px from top) */}
 
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
               Order Summary
             </h2>
 
@@ -274,20 +275,20 @@ export default function CartPage() {
               {/* space-y-4 = vertical spacing between items */}
 
               {/* Subtotal: sum of all items */}
-              <div className="flex justify-between text-gray-600">
+              <div className="flex justify-between text-gray-600 dark:text-gray-300">
                 <span>Subtotal</span>
                 <span>{formatPrice(subtotal)}</span>
               </div>
 
               {/* Shipping: calculated later */}
-              <div className="flex justify-between text-gray-600">
+              <div className="flex justify-between text-gray-600 dark:text-gray-300">
                 <span>Shipping</span>
                 <span>Calculated at checkout</span>
                 {/* Shipping cost calculated during checkout process */}
               </div>
 
               {/* Total: currently same as subtotal (no shipping yet) */}
-              <div className="border-t border-gray-200 pt-4 flex justify-between text-lg font-semibold text-gray-900">
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 flex justify-between text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {/* border-t = top border (separator line)
                     pt-4 = padding top */}
                 <span>Total</span>

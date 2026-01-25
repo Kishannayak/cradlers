@@ -191,7 +191,7 @@ export default function AddressesPage() {
           {addresses.map((address) => (
             <div
               key={address.id} // Unique key for React
-              className="bg-white rounded-2xl border border-gray-200 p-6"
+              className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6"
             >
               <div className="flex items-start justify-between">
                 {/* flex = flexbox layout
@@ -203,18 +203,18 @@ export default function AddressesPage() {
                   {/* flex-1 = takes remaining space */}
                   <div className="flex items-center gap-3 mb-2">
                     {/* Street address: bold */}
-                    <p className="font-semibold text-gray-900">
+                    <p className="font-semibold text-gray-900 dark:text-gray-100">
                       {address.street}
                     </p>
                     {/* Show "Default" badge if this is the default address */}
                     {address.is_default && (
-                      <span className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+                      <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full">
                         Default
                       </span>
                     )}
                   </div>
                   {/* City, state, ZIP: gray text */}
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-300">
                     {address.city}, {address.state} {address.zip}
                   </p>
                 </div>
@@ -317,10 +317,10 @@ export default function AddressesPage() {
                 setFormData({ ...formData, is_default: e.target.checked })
               }
               // Update is_default when checkbox is toggled
-              className="w-5 h-5 rounded border-gray-300 text-gray-900 focus:ring-gray-900"
+              className="w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 focus:ring-primary-500 dark:focus:ring-primary-400"
               // w-5 h-5 = 20px × 20px checkbox
             />
-            <span className="text-sm text-gray-700">
+            <span className="text-sm text-gray-700 dark:text-gray-300">
               Set as default address
             </span>
           </label>

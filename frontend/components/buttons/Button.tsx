@@ -1,5 +1,5 @@
 // Button component: A reusable button with different styles and sizes
-// Professional design with darker colors and gradients
+// Professional design with darker colors, gradients, and dark mode support
 
 // Import React library (needed for all React components)
 import React from "react";
@@ -39,14 +39,14 @@ export const Button: React.FC<ButtonProps> = ({
       "bg-gradient-purple text-white hover:opacity-90 focus:ring-primary-500 active:opacity-80 shadow-baby hover:shadow-baby-lg",
     // primary = gradient purple button: darker purple gradient, white text
     secondary:
-      "bg-gradient-secondary text-primary-700 hover:opacity-90 focus:ring-secondary-300 active:opacity-80 border border-secondary-200 shadow-soft",
-    // secondary = gradient peach button: peach gradient, purple text
+      "bg-gradient-secondary text-primary-700 dark:text-primary-300 hover:opacity-90 focus:ring-secondary-300 active:opacity-80 border border-secondary-200 dark:border-secondary-700 shadow-soft dark:shadow-dark",
+    // secondary = gradient peach button: peach gradient, purple text (adapts to dark mode)
     ghost:
-      "bg-transparent text-primary-600 hover:bg-primary-100 focus:ring-primary-200 active:bg-primary-200",
+      "bg-transparent text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 focus:ring-primary-200 dark:focus:ring-primary-700 active:bg-primary-100 dark:active:bg-primary-900/50",
     // ghost = transparent button: no background, purple text, light purple background on hover
     outline:
-      "bg-white text-primary-600 border-2 border-primary-500 hover:bg-gradient-soft focus:ring-primary-500 active:bg-primary-50",
-    // outline = outlined button: white background, purple border and text, gradient on hover
+      "bg-white dark:bg-gray-800 text-primary-600 dark:text-primary-400 border-2 border-primary-500 dark:border-primary-400 hover:bg-gradient-soft dark:hover:bg-primary-900/20 focus:ring-primary-500 dark:focus:ring-primary-400 active:bg-primary-50 dark:active:bg-primary-900/30",
+    // outline = outlined button: white/dark background, purple border and text, gradient on hover
   };
 
   // sizes object: Different padding and text sizes

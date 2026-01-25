@@ -1,5 +1,5 @@
 // Navigation component: The top navigation bar that appears on every page
-// Professional design with darker colors and gradient
+// Professional design with darker colors, gradient, and dark mode support
 
 // "use client" directive: This component needs to run in the browser
 // Needed because we use hooks (usePathname) and state management
@@ -13,6 +13,8 @@ import { usePathname } from "next/navigation";
 import { useCartStore } from "@/lib/user-state/cart-store";
 // Import auth store to check if user is logged in
 import { useAuthStore } from "@/lib/user-state/auth-store";
+// Import ThemeToggle component
+import { ThemeToggle } from "./ThemeToggle";
 
 // Navigation component: The actual navigation bar
 export const Navigation = () => {
@@ -29,15 +31,18 @@ export const Navigation = () => {
 
   return (
     // Navigation bar: sticky at top, with backdrop blur and gradient
-    <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-primary-200 shadow-soft">
+    <nav className="sticky top-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-primary-200 dark:border-primary-800 shadow-soft dark:shadow-dark">
       {/* sticky = stays at top when scrolling
           top-0 = stick to top of page
           z-40 = high z-index (appears above other content)
-          bg-white/95 = white background with 95% opacity (semi-transparent)
+          bg-white/95 = white background with 95% opacity (light mode)
+          dark:bg-gray-900/95 = dark background with 95% opacity (dark mode)
           backdrop-blur-md = blur the page content behind the nav
           border-b = bottom border
-          border-primary-200 = darker lavender border
-          shadow-soft = subtle shadow */}
+          border-primary-200 = darker lavender border (light mode)
+          dark:border-primary-800 = darker purple border (dark mode)
+          shadow-soft = subtle shadow (light mode)
+          dark:shadow-dark = darker shadow (dark mode) */}
 
       {/* Container: centers content and limits width */}
       <div className="max-w-7xl mx-auto px-6">
@@ -55,21 +60,23 @@ export const Navigation = () => {
           {/* Logo/Home link */}
           <Link
             href="/" // Links to homepage
-            className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-700 bg-clip-text text-transparent hover:from-primary-700 hover:to-primary-800 transition-all duration-200"
+            className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-400 dark:to-primary-500 bg-clip-text text-transparent hover:from-primary-700 hover:to-primary-800 dark:hover:from-primary-300 dark:hover:to-primary-400 transition-all duration-200"
             // text-2xl = extra large text
             // font-bold = bold weight
             // bg-gradient-to-r = gradient from left to right
-            // from-primary-600 to-primary-700 = darker purple gradient
+            // from-primary-600 to-primary-700 = darker purple gradient (light mode)
+            // dark:from-primary-400 dark:to-primary-500 = lighter purple gradient (dark mode)
             // bg-clip-text text-transparent = gradient text effect
-            // hover:from-primary-700 hover:to-primary-800 = darker gradient on hover
+            // hover:from-primary-700 hover:to-primary-800 = darker gradient on hover (light mode)
+            // dark:hover:from-primary-300 dark:hover:to-primary-400 = lighter gradient on hover (dark mode)
             // transition-all = smooth color change
           >
             Cradlers {/* Brand name */}
           </Link>
 
           {/* Right side: navigation links */}
-          <div className="flex items-center gap-8">
-            {/* gap-8 = space between links */}
+          <div className="flex items-center gap-6">
+            {/* gap-6 = space between links */}
 
             {/* Products link */}
             <Link
@@ -77,8 +84,8 @@ export const Navigation = () => {
               className={`text-sm font-medium transition-colors duration-200 ${
                 // Check if current page is products page
                 pathname?.startsWith("/products")
-                  ? "text-primary-600" // Darker purple text if on products page (active state)
-                  : "text-gray-600 hover:text-primary-600" // Gray text otherwise, purple on hover
+                  ? "text-primary-600 dark:text-primary-400" // Darker purple text if on products page (active state)
+                  : "text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400" // Gray text otherwise, purple on hover
               }`}
             >
               Products
@@ -87,7 +94,7 @@ export const Navigation = () => {
             {/* Cart link with item count badge */}
             <Link
               href="/cart" // Links to cart page
-              className="relative text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors duration-200"
+              className="relative text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
               // relative = allows absolute positioning of badge
             >
               Cart
@@ -117,8 +124,8 @@ export const Navigation = () => {
                 className={`text-sm font-medium transition-colors duration-200 ${
                   // Check if current page is account page
                   pathname?.startsWith("/account")
-                    ? "text-primary-600" // Darker purple text if on account page (active)
-                    : "text-gray-600 hover:text-primary-600" // Gray text otherwise, purple on hover
+                    ? "text-primary-600 dark:text-primary-400" // Darker purple text if on account page (active)
+                    : "text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400" // Gray text otherwise, purple on hover
                 }`}
               >
                 Account
@@ -127,11 +134,14 @@ export const Navigation = () => {
               // User is not logged in - show Login link
               <Link
                 href="/login" // Links to login page
-                className="text-sm font-medium text-gray-600 hover:text-primary-600 transition-colors duration-200"
+                className="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
               >
                 Login
               </Link>
             )}
+
+            {/* Theme Toggle Button */}
+            <ThemeToggle />
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 // Modal component: A popup dialog that appears on top of the page
 // Used for forms, confirmations, etc. - blocks interaction with the page behind it
+// With dark mode support
 
 // "use client" directive: Tells Next.js this component needs to run in the browser (not just server)
 // Needed because we're using browser APIs like document.body
@@ -58,27 +59,29 @@ export const Modal: React.FC<ModalProps> = ({
       
       {/* Modal content box: the actual dialog */}
       <div
-        className="bg-white rounded-2xl shadow-soft-lg max-w-md w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white dark:bg-gray-800 rounded-2xl shadow-soft-lg dark:shadow-dark-lg max-w-md w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700"
         onClick={(e) => e.stopPropagation()} // Prevent clicks inside modal from closing it
       >
-        {/* bg-white = white background
+        {/* bg-white dark:bg-gray-800 = white background (light mode), dark gray (dark mode)
             rounded-2xl = rounded corners
-            shadow-soft-lg = large shadow
+            shadow-soft-lg = large shadow (light mode)
+            dark:shadow-dark-lg = large dark shadow (dark mode)
             max-w-md = maximum width (medium size)
             w-full = full width up to max
             max-h-[90vh] = maximum height (90% of viewport height)
             overflow-y-auto = scroll vertically if content is too tall
+            border = border around modal
             stopPropagation = prevent click from bubbling up to backdrop */}
         
         {/* If title exists, show header with title and close button */}
         {title && (
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
             {/* Header row with title and close button */}
-            <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{title}</h2>
             {/* Close button (X icon) */}
             <button
               onClick={onClose} // Close modal when clicked
-              className="text-gray-400 hover:text-gray-600 transition-smooth"
+              className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-smooth"
             >
               {/* SVG icon: X/close symbol */}
               <svg

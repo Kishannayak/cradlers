@@ -1,5 +1,5 @@
 // Badge component: A small colored label/tag for displaying status or categories
-// Used for things like age ranges, order status, etc.
+// Used for things like age ranges, order status, etc. - with dark mode support
 
 // Import React library
 import React from "react";
@@ -19,10 +19,10 @@ export const Badge: React.FC<BadgeProps> = ({
 }) => {
   // variants object: Different color combinations for different badge types
   const variants = {
-    default: "bg-gradient-primary text-primary-700", // Lavender gradient background, darker purple text
-    success: "bg-success-100 text-success-600", // Green background, dark green text (positive/success)
-    warning: "bg-warning-100 text-warning-600", // Yellow background, dark yellow text (warning/caution)
-    disabled: "bg-gray-200 text-gray-500", // Light gray background, gray text (disabled/inactive)
+    default: "bg-gradient-primary dark:bg-gradient-dark text-primary-700 dark:text-primary-200", // Lavender gradient background (light mode), dark gradient (dark mode)
+    success: "bg-success-100 dark:bg-success-500/20 text-success-600 dark:text-success-400", // Green background (adapts to dark mode)
+    warning: "bg-warning-100 dark:bg-warning-500/20 text-warning-600 dark:text-warning-400", // Yellow background (adapts to dark mode)
+    disabled: "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400", // Light gray background (adapts to dark mode)
   };
 
   // Return the badge element

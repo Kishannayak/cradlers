@@ -22,16 +22,17 @@ export default function HomePage() {
             mb-16 = margin bottom (spacing below) */}
 
         {/* Main heading: large, bold title */}
-        <h1 className="text-5xl font-bold text-primary-700 mb-6">
+        <h1 className="text-5xl font-bold text-primary-700 dark:text-primary-300 mb-6">
           Premium Products for Little Ones
           {/* text-5xl = extra extra large text
               font-bold = bold weight
-              text-primary-700 = soft purple (matching GIF)
+              text-primary-700 = soft purple (light mode)
+              dark:text-primary-300 = lighter purple (dark mode)
               mb-6 = margin bottom */}
         </h1>
 
         {/* Subheading: description text */}
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-12">
+        <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-12">
           Curated collection of high-quality products designed for children ages
           0-5
           {/* text-xl = extra large text
@@ -59,7 +60,7 @@ export default function HomePage() {
             mt-24 = margin top (spacing above) */}
 
         {/* Doctor Consultations card */}
-        <div className="bg-primary-50 rounded-2xl p-8 border border-primary-200 opacity-60 shadow-soft">
+        <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-8 border border-primary-200 dark:border-primary-800 opacity-60 shadow-soft dark:shadow-dark">
           {/* bg-primary-50 = light lavender background (matching GIF)
               rounded-2xl = rounded corners
               p-8 = padding inside
@@ -68,10 +69,10 @@ export default function HomePage() {
               shadow-soft = subtle shadow */}
 
           {/* Icon container: circular background with icon */}
-          <div className="w-12 h-12 bg-primary-200 rounded-xl mb-4 flex items-center justify-center">
+          <div className="w-12 h-12 bg-primary-200 dark:bg-primary-800 rounded-xl mb-4 flex items-center justify-center">
             {/* SVG icon: checkmark/medical icon */}
             <svg
-              className="w-6 h-6 text-primary-600"
+              className="w-6 h-6 text-primary-600 dark:text-primary-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -86,24 +87,24 @@ export default function HomePage() {
           </div>
 
           {/* Feature title */}
-          <h3 className="text-lg font-semibold text-primary-700 mb-2">
+          <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">
             Doctor Consultations
           </h3>
 
           {/* "Coming Soon" text */}
-          <p className="text-sm text-primary-600 mb-4">Coming Soon</p>
+          <p className="text-sm text-primary-600 dark:text-primary-400 mb-4">Coming Soon</p>
 
           {/* Phase badge */}
-          <span className="inline-block px-3 py-1 bg-primary-200 text-primary-700 text-xs font-medium rounded-full">
+          <span className="inline-block px-3 py-1 bg-primary-200 dark:bg-primary-800 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
             Phase 2
           </span>
         </div>
 
         {/* Babysitter Services card (same structure as above) */}
-        <div className="bg-primary-50 rounded-2xl p-8 border border-primary-200 opacity-60 shadow-soft">
-          <div className="w-12 h-12 bg-primary-200 rounded-xl mb-4 flex items-center justify-center">
+        <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-8 border border-primary-200 dark:border-primary-800 opacity-60 shadow-soft dark:shadow-dark">
+          <div className="w-12 h-12 bg-primary-200 dark:bg-primary-800 rounded-xl mb-4 flex items-center justify-center">
             <svg
-              className="w-6 h-6 text-primary-600"
+              className="w-6 h-6 text-primary-600 dark:text-primary-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -116,20 +117,20 @@ export default function HomePage() {
               />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-primary-700 mb-2">
+          <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">
             Babysitter Services
           </h3>
-          <p className="text-sm text-primary-600 mb-4">Coming Soon</p>
-          <span className="inline-block px-3 py-1 bg-primary-200 text-primary-700 text-xs font-medium rounded-full">
+          <p className="text-sm text-primary-600 dark:text-primary-400 mb-4">Coming Soon</p>
+          <span className="inline-block px-3 py-1 bg-primary-200 dark:bg-primary-800 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
             Phase 2
           </span>
         </div>
 
         {/* School Programs card (same structure) */}
-        <div className="bg-primary-50 rounded-2xl p-8 border border-primary-200 opacity-60 shadow-soft">
-          <div className="w-12 h-12 bg-primary-200 rounded-xl mb-4 flex items-center justify-center">
+        <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-8 border border-primary-200 dark:border-primary-800 opacity-60 shadow-soft dark:shadow-dark">
+          <div className="w-12 h-12 bg-primary-200 dark:bg-primary-800 rounded-xl mb-4 flex items-center justify-center">
             <svg
-              className="w-6 h-6 text-primary-600"
+              className="w-6 h-6 text-primary-600 dark:text-primary-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -142,20 +143,20 @@ export default function HomePage() {
               />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-primary-700 mb-2">
+          <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">
             School Programs
           </h3>
-          <p className="text-sm text-primary-600 mb-4">Coming Soon</p>
-          <span className="inline-block px-3 py-1 bg-primary-200 text-primary-700 text-xs font-medium rounded-full">
+          <p className="text-sm text-primary-600 dark:text-primary-400 mb-4">Coming Soon</p>
+          <span className="inline-block px-3 py-1 bg-primary-200 dark:bg-primary-800 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
             Phase 2
           </span>
         </div>
 
         {/* Subscriptions card (same structure) */}
-        <div className="bg-primary-50 rounded-2xl p-8 border border-primary-200 opacity-60 shadow-soft">
-          <div className="w-12 h-12 bg-primary-200 rounded-xl mb-4 flex items-center justify-center">
+        <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-8 border border-primary-200 dark:border-primary-800 opacity-60 shadow-soft dark:shadow-dark">
+          <div className="w-12 h-12 bg-primary-200 dark:bg-primary-800 rounded-xl mb-4 flex items-center justify-center">
             <svg
-              className="w-6 h-6 text-primary-600"
+              className="w-6 h-6 text-primary-600 dark:text-primary-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -168,11 +169,11 @@ export default function HomePage() {
               />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-primary-700 mb-2">
+          <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">
             Subscriptions
           </h3>
-          <p className="text-sm text-primary-600 mb-4">Coming Soon</p>
-          <span className="inline-block px-3 py-1 bg-primary-200 text-primary-700 text-xs font-medium rounded-full">
+          <p className="text-sm text-primary-600 dark:text-primary-400 mb-4">Coming Soon</p>
+          <span className="inline-block px-3 py-1 bg-primary-200 dark:bg-primary-800 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
             Phase 2
           </span>
         </div>

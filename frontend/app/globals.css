@@ -13,6 +13,11 @@
     border-color: rgb(217, 199, 240); /* All borders default to darker lavender (primary-100) */
   }
 
+  /* Dark mode border colors */
+  .dark * {
+    border-color: rgb(55, 30, 88); /* Darker purple borders in dark mode (primary-800) */
+  }
+
   /* Body element: main page background with gradient and text styling */
   body {
     background: linear-gradient(135deg, #F3EDFF 0%, #FFF8F0 50%, #FFFFFF 100%);
@@ -27,6 +32,12 @@
     font-feature-settings: "kern" 1;
     /* text-rendering: optimize for legibility (better text quality) */
     text-rendering: optimizeLegibility;
+  }
+
+  /* Dark mode body styles */
+  .dark body {
+    background: linear-gradient(135deg, #1D0F34 0%, #371E58 50%, #512D7C 100%);
+    color: rgb(229, 231, 235); /* Light gray text in dark mode (gray-200) */
   }
 }
 

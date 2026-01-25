@@ -67,14 +67,17 @@ export default function ProductsPage() {
       {/* Page header: title and description */}
       <div className="mb-12">
         {/* mb-12 = margin bottom (spacing below) */}
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Products</h1>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">Products</h1>
         {/* text-4xl = extra large text
             font-bold = bold weight
+            text-gray-900 = dark text (light mode)
+            dark:text-gray-100 = light text (dark mode)
             mb-4 = margin bottom */}
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-gray-600 dark:text-gray-300">
           Discover premium products for your little one
           {/* text-lg = large text
-              text-gray-600 = medium gray color */}
+              text-gray-600 = medium gray color (light mode)
+              dark:text-gray-300 = light gray (dark mode) */}
         </p>
       </div>
 
@@ -93,7 +96,7 @@ export default function ProductsPage() {
               // Conditional styling: gradient if selected, light if not
               selectedAgeRange === null
                 ? "bg-gradient-purple text-white shadow-baby" // Selected: darker purple gradient, white text
-                : "bg-primary-100 text-primary-700 hover:bg-primary-200" // Not selected: light lavender, darker on hover
+                : "bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-800" // Not selected: light lavender (adapts to dark mode)
             }`}
           >
             All Ages
@@ -109,7 +112,7 @@ export default function ProductsPage() {
                 selectedAgeRange?.min_months === range.value.min_months &&
                 selectedAgeRange?.max_months === range.value.max_months
                   ? "bg-gradient-purple text-white shadow-baby" // Selected: darker purple gradient
-                  : "bg-primary-100 text-primary-700 hover:bg-primary-200" // Not selected: light lavender style
+                  : "bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 hover:bg-primary-200 dark:hover:bg-primary-800" // Not selected: light lavender style (adapts to dark mode)
               }`}
             >
               {range.label} {/* Display age range label like "0-6 months" */}

@@ -106,7 +106,7 @@ export default function ProductDetailPage() {
   if (!product) {
     return (
       <div className="max-w-7xl mx-auto px-6 py-24 text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           Product not found
         </h1>
         <Button onClick={() => router.push("/products")}>
@@ -127,7 +127,7 @@ export default function ProductDetailPage() {
             gap-12 = space between columns */}
 
         {/* Product Image */}
-        <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-gray-100">
+        <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800">
           {/* relative = allows absolute positioning of child (image)
               aspect-square = maintains 1:1 aspect ratio (square)
               w-full = full width
@@ -162,22 +162,22 @@ export default function ProductDetailPage() {
           </div>
 
           {/* Product name: large heading */}
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             {product.name}
           </h1>
 
           {/* Product price: large, bold */}
-          <p className="text-3xl font-semibold text-gray-900 mb-8">
+          <p className="text-3xl font-semibold text-gray-900 dark:text-gray-100 mb-8">
             {formatPrice(product.price)}
             {/* Convert number to "$49.99" format */}
           </p>
 
           {/* Description section */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-3">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">
               Description
             </h2>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
               {product.description}
               {/* leading-relaxed = more line spacing for readability */}
             </p>
@@ -185,7 +185,7 @@ export default function ProductDetailPage() {
 
           {/* Quantity Selector */}
           <div className="mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Quantity
             </label>
             {/* Flex container: decrease button, quantity display, increase button */}
@@ -194,7 +194,7 @@ export default function ProductDetailPage() {
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 // Math.max(1, ...) ensures quantity never goes below 1
-                className="w-10 h-10 rounded-xl border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-smooth"
+                className="w-10 h-10 rounded-xl border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-smooth"
                 // w-10 h-10 = 40px × 40px square button
                 // rounded-xl = rounded corners
                 // flex items-center justify-center = center the minus icon
@@ -217,7 +217,7 @@ export default function ProductDetailPage() {
               </button>
 
               {/* Quantity display: shows current quantity */}
-              <span className="text-lg font-medium text-gray-900 w-12 text-center">
+              <span className="text-lg font-medium text-gray-900 dark:text-gray-100 w-12 text-center">
                 {quantity}
                 {/* w-12 = fixed width so layout doesn't shift
                     text-center = center the number */}
@@ -226,7 +226,7 @@ export default function ProductDetailPage() {
               {/* Increase button: adds 1 to quantity */}
               <button
                 onClick={() => setQuantity(quantity + 1)}
-                className="w-10 h-10 rounded-xl border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-smooth"
+                className="w-10 h-10 rounded-xl border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-smooth"
               >
                 {/* Plus icon (horizontal and vertical lines) */}
                 <svg
@@ -269,10 +269,10 @@ export default function ProductDetailPage() {
             {/* mt-16 = margin top (spacing above)
                 pt-16 = padding top (spacing inside)
                 border-t = top border (separator line) */}
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
               Related Products
             </h2>
-            <p className="text-gray-500 text-sm">Coming in Phase 2</p>
+            <p className="text-gray-500 dark:text-gray-400 text-sm">Coming in Phase 2</p>
           </div>
         </div>
       </div>

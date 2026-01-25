@@ -25,16 +25,18 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
     // Container: centers everything vertically and horizontally
     <div className="flex flex-col items-center justify-center py-16 px-4">
       {/* Icon container: circular background with gradient */}
-      <div className="w-16 h-16 rounded-full bg-gradient-primary flex items-center justify-center mb-4 shadow-soft">
+      <div className="w-16 h-16 rounded-full bg-gradient-primary dark:bg-gradient-dark flex items-center justify-center mb-4 shadow-soft dark:shadow-dark">
         {/* w-16 h-16 = 64px × 64px circle
             rounded-full = perfect circle
-            bg-gradient-primary = lavender gradient background (darker)
+            bg-gradient-primary = lavender gradient background (light mode)
+            dark:bg-gradient-dark = dark purple gradient (dark mode)
             flex items-center justify-center = center the icon inside
-            shadow-soft = subtle shadow */}
+            shadow-soft = subtle shadow (light mode)
+            dark:shadow-dark = darker shadow (dark mode) */}
         
         {/* SVG icon: inbox/mail icon (represents empty state) */}
         <svg
-          className="w-8 h-8 text-primary-600"
+          className="w-8 h-8 text-primary-600 dark:text-primary-300"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -50,11 +52,11 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       </div>
       
       {/* Title: main heading */}
-      <h3 className="text-lg font-semibold text-primary-700 mb-2">{title}</h3>
+      <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">{title}</h3>
       
       {/* Description: optional additional text */}
       {description && (
-        <p className="text-primary-600 text-center max-w-sm mb-6">{description}</p>
+        <p className="text-primary-600 dark:text-primary-400 text-center max-w-sm mb-6">{description}</p>
         // text-center = center the text
         // max-w-sm = maximum width (so text doesn't stretch too wide)
       )}

@@ -6,6 +6,7 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class", // Enable class-based dark mode
   theme: {
     extend: {
       colors: {
@@ -84,6 +85,8 @@ const config: Config = {
         'gradient-purple': 'linear-gradient(135deg, #854BC4 0%, #6B3CA0 50%, #512D7C 100%)',
         'gradient-soft': 'linear-gradient(135deg, #F3EDFF 0%, #FFF8F0 100%)',
         'gradient-card': 'linear-gradient(135deg, #FFFFFF 0%, #F3EDFF 100%)',
+        'gradient-dark': 'linear-gradient(135deg, #1D0F34 0%, #371E58 50%, #512D7C 100%)',
+        'gradient-card-dark': 'linear-gradient(135deg, #262626 0%, #1D0F34 100%)',
       },
       fontFamily: {
         sans: [
@@ -110,6 +113,8 @@ const config: Config = {
         "soft-lg": "0 4px 16px rgba(133, 75, 196, 0.2)",
         "baby": "0 2px 12px rgba(133, 75, 196, 0.18)",
         "baby-lg": "0 8px 24px rgba(133, 75, 196, 0.22)",
+        "dark": "0 2px 8px rgba(0, 0, 0, 0.3)",
+        "dark-lg": "0 4px 16px rgba(0, 0, 0, 0.4)",
       },
       transitionDuration: {
         "150": "150ms",

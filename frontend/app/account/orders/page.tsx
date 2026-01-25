@@ -88,8 +88,8 @@ export default function OrdersPage() {
     <div className="max-w-4xl mx-auto px-6 py-12">
       {/* Page header */}
       <div className="mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Orders</h1>
-        <p className="text-gray-600">View your order history</p>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">Orders</h1>
+        <p className="text-gray-600 dark:text-gray-300">View your order history</p>
       </div>
 
       {/* Conditional rendering based on loading/orders state */}
@@ -118,7 +118,7 @@ export default function OrdersPage() {
             <Link
               key={order.id} // Unique key for React
               href={`/account/orders/${order.id}`} // Link to order detail page
-              className="block bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-soft-lg transition-smooth"
+              className="block bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-soft-lg dark:hover:shadow-dark-lg transition-smooth"
               // block = block-level element (full width)
               // hover:shadow-soft-lg = larger shadow on hover (card "lifts up")
               // transition-smooth = smooth animation
@@ -127,13 +127,13 @@ export default function OrdersPage() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   {/* Order number */}
-                  <p className="text-sm text-gray-500 mb-1">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
                     Order #{order.id}
                     {/* text-sm = small text
                         text-gray-500 = medium gray color */}
                   </p>
                   {/* Order date: formatted as readable date */}
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
                     {new Date(order.created_at).toLocaleDateString()}
                     {/* toLocaleDateString() = converts ISO date to readable format like "12/24/2024" */}
                   </p>
@@ -153,7 +153,7 @@ export default function OrdersPage() {
                 {order.items.map((item) => (
                   <div
                     key={item.id} // Unique key for React
-                    className="flex justify-between text-gray-600"
+                    className="flex justify-between text-gray-600 dark:text-gray-300"
                   >
                     <span>
                       {item.product_name} × {item.quantity}
@@ -166,18 +166,18 @@ export default function OrdersPage() {
               </div>
 
               {/* Order footer: item count and total */}
-              <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+              <div className="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-700">
                 {/* pt-4 = padding top
                     border-t = top border (separator line) */}
 
                 {/* Item count: shows number of items */}
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-gray-500 dark:text-gray-400">
                   {order.items.length} item{order.items.length !== 1 ? "s" : ""}
                   {/* Pluralize "item" if count is not 1 */}
                 </span>
 
                 {/* Order total: formatted as currency */}
-                <span className="text-lg font-semibold text-gray-900">
+                <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                   {formatPrice(order.total)}
                 </span>
               </div>

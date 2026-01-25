@@ -106,8 +106,8 @@ export default function OrderDetailPage() {
       </Button>
 
       {/* Order details card */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-8">
-        {/* bg-white = white background
+      <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8">
+        {/* bg-white dark:bg-gray-800 = white background (light mode), dark gray (dark mode)
             rounded-2xl = rounded corners
             border = border around
             p-8 = padding inside */}
@@ -116,7 +116,7 @@ export default function OrderDetailPage() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
             {/* Order number: large heading */}
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
               Order #{orderId}
             </h1>
             {/* Status badge: only show if order is loaded */}
@@ -129,7 +129,7 @@ export default function OrderDetailPage() {
           </div>
           {/* Order date: only show if order is loaded */}
           {order && (
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-300">
               Placed on {new Date(order.created_at).toLocaleDateString()}
               {/* Format date as readable string like "12/24/2024" */}
             </p>
@@ -143,13 +143,13 @@ export default function OrderDetailPage() {
             {/* Order Items Section */}
             <div className="space-y-4 mb-8">
               {/* space-y-4 = vertical spacing between items */}
-              <h2 className="text-xl font-semibold text-gray-900">Items</h2>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Items</h2>
 
               {/* Map through order items and display each one */}
               {order.items.map((item) => (
                 <div
                   key={item.id} // Unique key for React
-                  className="flex justify-between py-4 border-b border-gray-200 last:border-0"
+                  className="flex justify-between py-4 border-b border-gray-200 dark:border-gray-700 last:border-0"
                   // flex = flexbox layout
                   // justify-between = space between name and price
                   // py-4 = vertical padding
@@ -159,16 +159,16 @@ export default function OrderDetailPage() {
                   {/* Item details */}
                   <div>
                     {/* Product name: bold */}
-                    <p className="font-medium text-gray-900">
+                    <p className="font-medium text-gray-900 dark:text-gray-100">
                       {item.product_name}
                     </p>
                     {/* Quantity: small gray text */}
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
                       Quantity: {item.quantity}
                     </p>
                   </div>
                   {/* Item total: price × quantity */}
-                  <p className="font-semibold text-gray-900">
+                  <p className="font-semibold text-gray-900 dark:text-gray-100">
                     {formatPrice(item.price * item.quantity)}
                   </p>
                 </div>
@@ -176,15 +176,15 @@ export default function OrderDetailPage() {
             </div>
 
             {/* Order Total Section */}
-            <div className="pt-6 border-t border-gray-200">
+            <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
               {/* pt-6 = padding top
                   border-t = top border (separator line) */}
               <div className="flex justify-between items-center mb-4">
-                <span className="text-lg font-semibold text-gray-900">
+                <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                   Total
                 </span>
                 {/* Order total: large, bold */}
-                <span className="text-2xl font-bold text-gray-900">
+                <span className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                   {formatPrice(order.total)}
                 </span>
               </div>
@@ -193,15 +193,15 @@ export default function OrderDetailPage() {
             {/* Shipping Address Section */}
             {/* Only show if order has a shipping address */}
             {order.shipping_address && (
-              <div className="mt-8 pt-8 border-t border-gray-200">
+              <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
                 {/* mt-8 = margin top (spacing above)
                     pt-8 = padding top (spacing inside)
                     border-t = top border (separator line) */}
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
                   Shipping Address
                 </h2>
                 {/* Address formatted as multi-line text */}
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-300">
                   {order.shipping_address.street}
                   <br /> {/* Line break */}
                   {order.shipping_address.city}, {order.shipping_address.state}{" "}

@@ -54,21 +54,21 @@ export default function AccountPage() {
 
       {/* Page header */}
       <div className="mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Account</h1>
-        <p className="text-gray-600">Manage your account settings</p>
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">Account</h1>
+        <p className="text-gray-600 dark:text-gray-300">Manage your account settings</p>
       </div>
 
       <div className="space-y-6">
         {/* space-y-6 = vertical spacing between sections */}
 
         {/* User Info Section */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
           {/* bg-white = white background
               rounded-2xl = rounded corners
               border = border around
               p-6 = padding inside */}
 
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
             Account Information
           </h2>
 
@@ -78,10 +78,10 @@ export default function AccountPage() {
 
             {/* Phone number */}
             <div>
-              <p className="text-sm text-gray-500">Phone</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Phone</p>
               {/* text-sm = small text
                   text-gray-500 = medium gray color (label) */}
-              <p className="text-gray-900 font-medium">{user.phone}</p>
+              <p className="text-gray-900 dark:text-gray-100 font-medium">{user.phone}</p>
               {/* text-gray-900 = dark text (value)
                   font-medium = medium weight */}
             </div>
@@ -89,8 +89,8 @@ export default function AccountPage() {
             {/* Email: only show if user has an email */}
             {user.email && (
               <div>
-                <p className="text-sm text-gray-500">Email</p>
-                <p className="text-gray-900 font-medium">{user.email}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Email</p>
+                <p className="text-gray-900 dark:text-gray-100 font-medium">{user.email}</p>
               </div>
             )}
           </div>
@@ -107,14 +107,16 @@ export default function AccountPage() {
           {/* Addresses link card */}
           <Link href="/account/addresses">
             {/* Link makes entire card clickable */}
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-soft-lg transition-smooth cursor-pointer">
-              {/* hover:shadow-soft-lg = larger shadow on hover (card "lifts up")
+            <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-soft-lg dark:hover:shadow-dark-lg transition-smooth cursor-pointer">
+              {/* bg-white dark:bg-gray-800 = white background (light mode), dark gray (dark mode)
+                  hover:shadow-soft-lg = larger shadow on hover (light mode)
+                  dark:hover:shadow-dark-lg = larger dark shadow on hover (dark mode)
                   transition-smooth = smooth animation
                   cursor-pointer = pointer cursor (indicates clickable) */}
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
                 Addresses
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-600 dark:text-gray-300">
                 Manage your shipping addresses
               </p>
             </div>
@@ -122,11 +124,11 @@ export default function AccountPage() {
 
           {/* Orders link card */}
           <Link href="/account/orders">
-            <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-soft-lg transition-smooth cursor-pointer">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 hover:shadow-soft-lg dark:hover:shadow-dark-lg transition-smooth cursor-pointer">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
                 Orders
               </h3>
-              <p className="text-sm text-gray-600">View your order history</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">View your order history</p>
             </div>
           </Link>
         </div>

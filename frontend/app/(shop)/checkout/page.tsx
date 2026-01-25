@@ -149,7 +149,7 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-6 py-24 text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           Your cart is empty
         </h1>
         <Button onClick={() => router.push("/products")}>
@@ -162,7 +162,7 @@ export default function CheckoutPage() {
   // Main checkout view
   return (
     <div className="max-w-4xl mx-auto px-6 py-12">
-      <h1 className="text-4xl font-bold text-gray-900 mb-12">Checkout</h1>
+      <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-12">Checkout</h1>
 
       <div className="space-y-12">
         {/* space-y-12 = vertical spacing between sections */}
@@ -171,7 +171,7 @@ export default function CheckoutPage() {
         <div>
           {/* Header with "Add New Address" button */}
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-gray-900">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
               Shipping Address
             </h2>
             <Button
@@ -191,8 +191,8 @@ export default function CheckoutPage() {
             </div>
           ) : addresses.length === 0 ? (
             // If no addresses, show message with button to add one
-            <div className="bg-gray-50 rounded-2xl p-8 text-center border border-gray-200">
-              <p className="text-gray-600 mb-4">No addresses saved</p>
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 text-center border border-gray-200 dark:border-gray-700">
+              <p className="text-gray-600 dark:text-gray-300 mb-4">No addresses saved</p>
               <Button onClick={() => setShowAddressModal(true)}>
                 Add Address
               </Button>
@@ -207,8 +207,8 @@ export default function CheckoutPage() {
                   className={`block p-6 rounded-2xl border-2 cursor-pointer transition-smooth ${
                     // Conditional styling: highlight selected address
                     selectedAddressId === address.id
-                      ? "border-gray-900 bg-gray-50" // Selected: dark border, light background
-                      : "border-gray-200 hover:border-gray-300" // Not selected: light border, darker on hover
+                      ? "border-primary-600 dark:border-primary-400 bg-primary-50 dark:bg-primary-900/30" // Selected: purple border, light background
+                      : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600" // Not selected: light border, darker on hover
                   }`}
                   // block = block-level element
                   // cursor-pointer = show pointer cursor (indicates clickable)
@@ -227,17 +227,17 @@ export default function CheckoutPage() {
                   <div className="flex items-start justify-between">
                     <div>
                       {/* Street address: bold */}
-                      <p className="font-semibold text-gray-900 mb-1">
+                      <p className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
                         {address.street}
                       </p>
                       {/* City, state, ZIP: gray text */}
-                      <p className="text-gray-600">
+                      <p className="text-gray-600 dark:text-gray-300">
                         {address.city}, {address.state} {address.zip}
                       </p>
                     </div>
                     {/* Show "Default" badge if this is the default address */}
                     {address.is_default && (
-                      <span className="px-3 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
+                      <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full">
                         Default
                       </span>
                     )}
@@ -249,8 +249,8 @@ export default function CheckoutPage() {
         </div>
 
         {/* Order Summary Section */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
             Order Summary
           </h2>
 
@@ -258,7 +258,7 @@ export default function CheckoutPage() {
           <div className="space-y-4 mb-6">
             {/* Map through cart items and show each one */}
             {items.map((item) => (
-              <div key={item.id} className="flex justify-between text-gray-600">
+              <div key={item.id} className="flex justify-between text-gray-600 dark:text-gray-300">
                 <span>
                   {item.product.name} × {item.quantity}
                   {/* Product name and quantity */}
@@ -269,7 +269,7 @@ export default function CheckoutPage() {
             ))}
 
             {/* Total: sum of all items */}
-            <div className="border-t border-gray-200 pt-4 flex justify-between text-lg font-semibold text-gray-900">
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-4 flex justify-between text-lg font-semibold text-gray-900 dark:text-gray-100">
               {/* border-t = top border (separator line) */}
               <span>Total</span>
               <span>{formatPrice(subtotal)}</span>

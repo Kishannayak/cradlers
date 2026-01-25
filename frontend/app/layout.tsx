@@ -8,6 +8,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 // Import Navigation component (the top navigation bar)
 import { Navigation } from "@/components/layout/Navigation";
+// Import ThemeProvider for dark/light mode
+import { ThemeProvider } from "@/lib/theme/theme-provider";
 
 // Metadata: Information about the site for search engines and browser tabs
 export const metadata: Metadata = {
@@ -24,20 +26,24 @@ export default function RootLayout({
 }) {
   return (
     // HTML structure: root html element
-    <html lang="en">
-      {/* lang="en" = tells browser this page is in English */}
+    <html lang="en" suppressHydrationWarning>
+      {/* lang="en" = tells browser this page is in English
+          suppressHydrationWarning = prevents hydration warning for theme */}
       
       {/* Body: contains all visible content */}
       <body>
-        {/* Navigation: the top navigation bar (appears on every page) */}
-        <Navigation />
-        
-        {/* Main content area: where page content goes */}
-        <main className="min-h-screen">
-          {/* min-h-screen = minimum height of full screen (ensures content fills viewport)
-              {children} = the actual page content (homepage, products, cart, etc.) */}
-          {children}
-        </main>
+        {/* ThemeProvider: wraps app to provide theme context */}
+        <ThemeProvider>
+          {/* Navigation: the top navigation bar (appears on every page) */}
+          <Navigation />
+          
+          {/* Main content area: where page content goes */}
+          <main className="min-h-screen">
+            {/* min-h-screen = minimum height of full screen (ensures content fills viewport)
+                {children} = the actual page content (homepage, products, cart, etc.) */}
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
