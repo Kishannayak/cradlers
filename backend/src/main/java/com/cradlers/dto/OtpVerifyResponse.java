@@ -46,15 +46,17 @@ public class OtpVerifyResponse {
         private String id;
         private String phone;
         private String email;
+        private String role;
         private String createdAt;
 
         public UserDto() {
         }
 
-        public UserDto(String id, String phone, String email, String createdAt) {
+        public UserDto(String id, String phone, String email, String role, String createdAt) {
             this.id = id;
             this.phone = phone;
             this.email = email;
+            this.role = role; // null = customer
             this.createdAt = createdAt;
         }
 
@@ -88,6 +90,14 @@ public class OtpVerifyResponse {
 
         public void setCreatedAt(String createdAt) {
             this.createdAt = createdAt;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
         }
     }
 }

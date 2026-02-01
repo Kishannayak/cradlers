@@ -17,7 +17,13 @@ jwt:
   expiration: 86400000
 
 cors:
-  allowed-origins: http://localhost:3000
+  # Main app + admin and vendor subdomains (use port 3000 when running Next.js dev)
+  allowed-origins: http://localhost:3000,http://admin.localhost:3000,http://vendor.localhost:3000
+
+# Bootstrap admin/vendor phone numbers (comma-separated). These users get the role on login.
+app:
+  bootstrap-admin-phones: "+918748021561"
+  bootstrap-vendor-phones: "+919880832916"
 
 logging:
   level:

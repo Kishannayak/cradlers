@@ -2,14 +2,14 @@
 // This is where we set up the HTML structure, navigation, and global styles
 // In Next.js App Router, this file applies to all pages automatically
 
-// Import Metadata type for setting page metadata (title, description for SEO)
 import type { Metadata } from "next";
-// Import global CSS styles (Tailwind and custom styles)
 import "./globals.css";
-// Import Navigation component (the top navigation bar)
-import { Navigation } from "@/components/layout/Navigation";
-// Import ThemeProvider for dark/light mode
 import { ThemeProvider } from "@/lib/theme/theme-provider";
+import { Chatbot } from "@/components/chat/Chatbot";
+import { getPortalFromHeaders } from "@/lib/portal/server";
+import { PortalProvider } from "@/lib/portal/context";
+import { PortalShell } from "@/components/layout/PortalShell";
+import { AuthHandoffHandler } from "@/components/auth/AuthHandoffHandler";
 
 // Metadata: Information about the site for search engines and browser tabs
 export const metadata: Metadata = {
@@ -17,32 +17,22 @@ export const metadata: Metadata = {
   description: "Curated products for children ages 0-5", // Description for search engines
 };
 
-// RootLayout: The main layout component
-// This function receives children (the page content) and wraps it with navigation
-export default function RootLayout({
-  children, // The page content that will be displayed (changes based on current route)
+export default async function RootLayout({
+  children,
 }: {
-  children: React.ReactNode; // TypeScript: children can be any React content
+  children: React.ReactNode;
 }) {
+  const portal = await getPortalFromHeaders();
+
   return (
-    // HTML structure: root html element
     <html lang="en" suppressHydrationWarning>
-      {/* lang="en" = tells browser this page is in English
-          suppressHydrationWarning = prevents hydration warning for theme */}
-      
-      {/* Body: contains all visible content */}
       <body>
-        {/* ThemeProvider: wraps app to provide theme context */}
         <ThemeProvider>
-          {/* Navigation: the top navigation bar (appears on every page) */}
-          <Navigation />
-          
-          {/* Main content area: where page content goes */}
-          <main className="min-h-screen">
-            {/* min-h-screen = minimum height of full screen (ensures content fills viewport)
-                {children} = the actual page content (homepage, products, cart, etc.) */}
-            {children}
-          </main>
+          <PortalProvider portal={portal}>
+            <AuthHandoffHandler />
+            <PortalShell>{children}</PortalShell>
+            <Chatbot />
+          </PortalProvider>
         </ThemeProvider>
       </body>
     </html>

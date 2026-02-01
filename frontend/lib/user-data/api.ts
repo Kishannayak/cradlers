@@ -31,11 +31,15 @@ export interface CartItem {
   created_at: string; // When this item was added to the cart
 }
 
+// Role type: only ADMIN and VENDOR are stored; no role = customer
+export type UserRole = "ADMIN" | "VENDOR";
+
 // User interface: Stores information about a logged-in user
 export interface User {
   id: string; // Unique user identifier
   phone: string; // User's phone number (used for login via OTP)
   email?: string; // Optional email address (the ? means it might not exist)
+  role?: UserRole | null; // ADMIN or VENDOR only; undefined/null = customer
   addresses: Address[]; // List of shipping addresses the user has saved
   created_at: string; // When the user account was created
 }
@@ -139,6 +143,7 @@ export interface OTPLoginRequest {
 export interface OTPVerifyRequest {
   phone: string; // Same phone number from the request
   otp: string; // The code the user received (One-Time Password)
+  role?: string; // Optional: "admin" | "vendor" – from portal (admin.localhost / vendor.localhost)
 }
 
 // OTPVerifyResponse: What we get back if the code is correct
@@ -170,4 +175,11 @@ export interface UpdateAddressRequest {
 export interface GetOrdersResponse {
   orders: Order[]; // Array of all past orders
   total: number; // Total number of orders (useful for pagination)
+}
+
+// Portal role from hostname: admin.localhost -> "admin", vendor.localhost -> "vendor", else undefined (customer)
+export function getPortalRoleFromHostname(hostname: string): "admin" | "vendor" | undefined {
+  if (hostname === "admin.localhost") return "admin";
+  if (hostname === "vendor.localhost") return "vendor";
+  return undefined;
 }

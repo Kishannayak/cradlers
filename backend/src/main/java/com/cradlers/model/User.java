@@ -24,6 +24,9 @@ public class User {
     
     private String email;
     
+    /** Role: ADMIN or VENDOR only. Null = customer (no role stored). */
+    private String role;
+    
     @DBRef(lazy = true)
     private List<Address> addresses = new ArrayList<>();
     
@@ -36,6 +39,12 @@ public class User {
 
     public User(String phone) {
         this.phone = phone;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public User(String phone, String role) {
+        this.phone = phone;
+        this.role = (role != null && !role.isBlank()) ? role.trim().toUpperCase() : null;
         this.createdAt = LocalDateTime.now();
     }
 
@@ -77,5 +86,13 @@ public class User {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getRole() {
+        return role; // null = customer
+    }
+
+    public void setRole(String role) {
+        this.role = (role != null && !role.isBlank()) ? role.trim().toUpperCase() : null;
     }
 }

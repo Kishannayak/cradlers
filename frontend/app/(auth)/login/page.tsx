@@ -11,12 +11,16 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 // Import API client to request and verify OTP
 import { api } from "@/lib/backend/client";
+// Import portal role from hostname (admin.localhost -> admin, vendor.localhost -> vendor)
+import { getPortalRoleFromHostname } from "@/lib/user-data/api";
 // Import auth store to save user data after login
 import { useAuthStore } from "@/lib/user-state/auth-store";
 // Import UI components
 import { Button } from "@/components/buttons/Button";
 import { Input } from "@/components/forms/Input";
 import { BabyLoader } from "@/components/displays/BabyLoader";
+// Region-aware phone placeholder (e.g. +91 for India, +1 for US)
+import { getPhonePlaceholder } from "@/lib/helpers/phone-placeholder";
 
 // LoginPage component: The login page
 export default function LoginPage() {
@@ -65,11 +69,26 @@ export default function LoginPage() {
     setLoading(true); // Show loading spinner
 
     try {
-      // Call API to verify the OTP code
-      const response = await api.verifyOTP({ phone, otp });
+      // Role from hostname: admin.localhost -> admin, vendor.localhost -> vendor (for new user creation)
+      const portalRole =
+        typeof window !== "undefined" ? getPortalRoleFromHostname(window.location.hostname) : undefined;
+      // Call API to verify the OTP code (include role so backend assigns it for new users)
+      const response = await api.verifyOTP({ phone, otp, role: portalRole });
       // If code is correct, save user data and token
       setUser(response.user, response.token);
-      // Navigate to the redirect URL (or account page)
+      // Redirect based on role: ADMIN → admin portal, VENDOR → vendor portal, else requested path
+      // Pass auth in hash so admin/vendor subdomain can restore it (localStorage is not shared)
+      const role = response.user.role;
+      const port = typeof window !== "undefined" ? window.location.port || "3000" : "3000";
+      const authHash = `#auth_handoff=${encodeURIComponent(JSON.stringify({ token: response.token, user: response.user }))}`;
+      if (role === "ADMIN") {
+        window.location.href = `http://admin.localhost:${port}/${authHash}`;
+        return;
+      }
+      if (role === "VENDOR") {
+        window.location.href = `http://vendor.localhost:${port}/${authHash}`;
+        return;
+      }
       router.push(redirect);
     } catch (err) {
       // If verification fails, show error message
@@ -108,11 +127,11 @@ export default function LoginPage() {
             {/* Phone number input */}
             <Input
               label="Phone Number"
-              type="tel" // Telephone input type (shows numeric keyboard on mobile)
+              type="tel"
               value={phone}
-              onChange={(e) => setPhone(e.target.value)} // Update state when user types
-              placeholder="+1 (555) 000-0000"
-              required // HTML5 validation: field must be filled
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder={getPhonePlaceholder()}
+              required
               disabled={loading} // Disable while processing
             />
 

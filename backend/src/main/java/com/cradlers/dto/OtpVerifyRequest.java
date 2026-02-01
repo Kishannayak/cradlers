@@ -22,12 +22,21 @@ public class OtpVerifyRequest {
     @Pattern(regexp = "^\\d{6}$", message = "OTP must be 6 digits")
     private String otp;
 
+    /** Optional: role for portal (admin, vendor). Used when creating new user. */
+    private String role;
+
     public OtpVerifyRequest() {
     }
 
     public OtpVerifyRequest(String phone, String otp) {
         this.phone = phone;
         this.otp = otp;
+    }
+
+    public OtpVerifyRequest(String phone, String otp, String role) {
+        this.phone = phone;
+        this.otp = otp;
+        this.role = role;
     }
 
     public String getPhone() {
@@ -44,6 +53,14 @@ public class OtpVerifyRequest {
 
     public void setOtp(String otp) {
         this.otp = otp;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
 

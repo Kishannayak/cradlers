@@ -11,10 +11,14 @@ import com.cradlers.util.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
@@ -37,6 +41,12 @@ public class AuthService {
     
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Value("${app.bootstrap-admin-phones:}")
+    private String bootstrapAdminPhones;
+
+    @Value("${app.bootstrap-vendor-phones:}")
+    private String bootstrapVendorPhones;
 
     /**
      * Request OTP for phone number
@@ -87,27 +97,71 @@ public class AuthService {
         otpCode.setUsed(true);
         otpCodeRepository.save(otpCode);
         
+        // Resolve role from request: only ADMIN or VENDOR stored; no role = customer
+        String requestedRole = request.getRole();
+        String role = normalizeRole(requestedRole);
+        
         // Find or create user
         User user = userRepository.findByPhone(phone)
                 .orElseGet(() -> {
-                    User newUser = new User(phone);
+                    User newUser = new User(phone, role);
                     return userRepository.save(newUser);
                 });
-        
-        // Generate JWT token
-        String token = jwtUtil.generateToken(user.getId(), user.getPhone());
+        // Bootstrap admin: if phone is in config list, always set ADMIN
+        if (isBootstrapPhone(phone, bootstrapAdminPhones)) {
+            user.setRole("ADMIN");
+            userRepository.save(user);
+        } else if (isBootstrapPhone(phone, bootstrapVendorPhones)) {
+            user.setRole("VENDOR");
+            userRepository.save(user);
+        }
+        // Otherwise existing users keep their existing role
+
+        // Generate JWT token (include role)
+        String token = jwtUtil.generateToken(user.getId(), user.getPhone(), user.getRole());
         
         // Build response
         OtpVerifyResponse.UserDto userDto = new OtpVerifyResponse.UserDto(
                 user.getId(),
                 user.getPhone(),
                 user.getEmail(),
+                user.getRole(),
                 user.getCreatedAt().format(DateTimeFormatter.ISO_DATE_TIME)
         );
         
         logger.info("OTP verified successfully for user: {}", user.getId());
         
         return new OtpVerifyResponse(userDto, token);
+    }
+
+    /**
+     * Check if phone is in the given bootstrap list (comparison ignores spaces).
+     */
+    private boolean isBootstrapPhone(String phone, String configList) {
+        if (configList == null || configList.isBlank()) return false;
+        String normalized = normalizePhone(phone);
+        List<String> phones = Arrays.stream(configList.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .map(this::normalizePhone)
+                .collect(Collectors.toList());
+        return phones.contains(normalized);
+    }
+
+    private String normalizePhone(String phone) {
+        if (phone == null) return "";
+        return phone.replaceAll("\\s+", "").trim();
+    }
+
+    /**
+     * Normalize role from request: admin -> ADMIN, vendor -> VENDOR. Else null (customer).
+     */
+    private String normalizeRole(String role) {
+        if (role == null || role.isBlank()) return null;
+        String r = role.trim().toUpperCase();
+        if ("ADMIN".equals(r)) return "ADMIN";
+        if ("VENDOR".equals(r)) return "VENDOR";
+        return null;
     }
 
     /**

@@ -54,12 +54,23 @@ A modern e-commerce platform for premium kids products (ages 0-5).
 - **Database**: MongoDB
 - **Security**: Spring Security with JWT
 
-## 🔐 Authentication
+## 🔐 Authentication & Roles
 
 The application uses OTP-based authentication:
 1. User enters phone number
 2. Receives 6-digit OTP code (logged to backend console in development)
 3. Enters OTP to verify and log in
+
+**Roles** are assigned by portal (subdomain). Only **ADMIN** and **VENDOR** are stored; users with no role are customers.
+- **ADMIN** — log in at `http://admin.localhost:3000` (admin portal)
+- **VENDOR** — log in at `http://vendor.localhost:3000` (vendor portal)
+- **Customer** — no role stored; log in at `http://localhost:3000` (shop) or anyone without ADMIN/VENDOR
+
+New users get ADMIN or VENDOR only when signing up from admin/vendor portals; otherwise no role (customer). Add to `/etc/hosts` (or `C:\Windows\System32\drivers\etc\hosts` on Windows):
+```
+127.0.0.1 admin.localhost vendor.localhost
+```
+Then open `http://admin.localhost:3000` or `http://vendor.localhost:3000` for the respective dashboards.
 
 ## 📝 Environment Variables
 
@@ -72,7 +83,8 @@ NEXT_PUBLIC_API_URL=http://localhost:8000  # Backend API URL
 ```properties
 spring.data.mongodb.uri=mongodb://localhost:27017/cradlers
 jwt.secret=your-secret-key
-cors.allowed-origins=http://localhost:3000
+# Include admin and vendor subdomains for CORS
+cors.allowed-origins=http://localhost:3000,http://admin.localhost:3000,http://vendor.localhost:3000
 ```
 
 ## 🧪 Testing the Login Flow
