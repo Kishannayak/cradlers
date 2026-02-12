@@ -1,119 +1,109 @@
-# Cradlers Phase 1 MVP Frontend
+# Cradlers
 
-A premium e-commerce frontend for kids products (ages 0-5) built with Next.js, TypeScript, and Tailwind CSS.
+A modern e-commerce platform for premium kids products (ages 0-5).
 
-## Features
-
-- **Product Listing**: Age-based filtering with large, minimal product cards
-- **Product Detail**: Clean product pages with add-to-cart functionality
-- **Shopping Cart**: Manage items with quantity controls
-- **Checkout**: Address selection and order placement
-- **User Account**: OTP login, address management, and order history
-
-## Tech Stack
-
-- **Framework**: Next.js 14+ (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **State Management**: Zustand
-- **Design**: Apple-inspired minimal design
-
-## Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Node.js 18+
-- npm or yarn
+- **Node.js** 18+ and npm
+- **Java** 17+
+- **Maven** 3.6+
+- **MongoDB** (local or cloud)
+- **Docker** (optional, for MongoDB)
 
-### Installation
+### Start the Application
 
-1. Install dependencies:
+1. **Start MongoDB** (see [MongoDB Setup](./backend/MONGODB_SETUP.md))
+   ```bash
+   docker run -d -p 27017:27017 --name mongodb mongo:latest
+   ```
 
+2. **Start Backend** (see [Backend Setup](./backend/SETUP.md))
+   ```bash
+   cd backend
+   mvn spring-boot:run
+   ```
+   Backend runs on `http://localhost:8000`
+
+3. **Start Frontend** (see [Frontend Setup](./frontend/SETUP.md))
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+   Frontend runs on `http://localhost:3000`
+
+## 📚 Documentation
+
+- **[Frontend Setup](./frontend/SETUP.md)** - Frontend installation and configuration
+- **[Backend Setup](./backend/SETUP.md)** - Backend installation and configuration
+- **[MongoDB Setup](./backend/MONGODB_SETUP.md)** - MongoDB installation and configuration
+
+## 🏗️ Architecture
+
+### Frontend
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand
+
+### Backend
+- **Framework**: Spring Boot 3.2.0
+- **Language**: Java 17
+- **Database**: MongoDB
+- **Security**: Spring Security with JWT
+
+## 🔐 Authentication & Roles
+
+The application uses OTP-based authentication:
+1. User enters phone number
+2. Receives 6-digit OTP code (logged to backend console in development)
+3. Enters OTP to verify and log in
+
+**Roles** are assigned by portal (subdomain). Only **ADMIN** and **VENDOR** are stored; users with no role are customers.
+- **ADMIN** — log in at `http://admin.localhost:3000` (admin portal)
+- **VENDOR** — log in at `http://vendor.localhost:3000` (vendor portal)
+- **Customer** — no role stored; log in at `http://localhost:3000` (shop) or anyone without ADMIN/VENDOR
+
+New users get ADMIN or VENDOR only when signing up from admin/vendor portals; otherwise no role (customer). Add to `/etc/hosts` (or `C:\Windows\System32\drivers\etc\hosts` on Windows):
+```
+127.0.0.1 admin.localhost vendor.localhost
+```
+Then open `http://admin.localhost:3000` or `http://vendor.localhost:3000` for the respective dashboards.
+
+## 📝 Environment Variables
+
+### Frontend
 ```bash
-npm install
+NEXT_PUBLIC_API_URL=http://localhost:8000  # Backend API URL
 ```
 
-2. Run the development server:
-
-```bash
-npm run dev
+### Backend
+```properties
+spring.data.mongodb.uri=mongodb://localhost:27017/cradlers
+jwt.secret=your-secret-key
+# Include admin and vendor subdomains for CORS
+cors.allowed-origins=http://localhost:3000,http://admin.localhost:3000,http://vendor.localhost:3000
 ```
 
-3. Open [http://localhost:3000](http://localhost:3000) in your browser
+## 🧪 Testing the Login Flow
 
-## Project Structure
+1. Navigate to `http://localhost:3000/login`
+2. Enter a phone number (e.g., `+1234567890`)
+3. Check backend console logs for the OTP code
+4. Enter the 6-digit OTP code
+5. You should be logged in and redirected
+
+## 📦 Project Structure
 
 ```
-app/
-├── (auth)/login/          # OTP login page
-├── (shop)/
-│   ├── products/          # Product listing
-│   ├── products/[id]/     # Product detail
-│   ├── cart/              # Shopping cart
-│   └── checkout/          # Checkout flow
-└── account/                # User account pages
-
-lib/
-├── backend/               # API client with logging
-├── user-data/             # TypeScript types (snake_case for FastAPI)
-├── user-state/            # Zustand stores
-├── helpers/               # Utility functions
-└── settings/              # Constants and age ranges
-
-components/
-├── buttons/               # Button components
-├── cards/                 # Card components
-├── forms/                 # Form components
-├── displays/              # Display components (badges, loading, etc.)
-├── shop/                  # Shop-specific components
-└── layout/                # Layout components
+cradlers/
+├── frontend/          # Next.js frontend application
+├── backend/           # Spring Boot backend API
+└── README.md          # This file
 ```
 
-## API Logging
-
-All API interactions are logged to the console with:
-
-- HTTP method
-- Endpoint URL
-- JSON payload
-
-The API client sends real HTTP requests to the backend (so backend engineers can see them) but returns mock data to the frontend (so the frontend works even if the backend isn't ready).
-
-## Design Principles
-
-- **Minimal**: Clean, uncluttered interfaces
-- **Whitespace**: Generous spacing between elements
-- **Typography**: SF Pro-like font stack
-- **Colors**: Neutral palette with warm undertones
-- **Motion**: Smooth 150-200ms transitions
-- **Premium Feel**: Subtle shadows, refined interactions
-
-## Future Features (Phase 2)
-
-The following features are visually present but disabled:
-
-- Doctor consultations
-- Babysitter services
-- School programs
-- Subscriptions
-
-## Backend Integration
-
-The frontend is designed to work with a FastAPI backend. All API payloads use `snake_case` to match Python/Pydantic conventions.
-
-Update the `API_BASE_URL` in `lib/backend/client.ts` when connecting to the backend:
-
-```typescript
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
-```
-
-## Build for Production
-
-```bash
-npm run build
-npm start
-```
-
-## License
+## 📄 License
 
 Private - Cradlers

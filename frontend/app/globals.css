@@ -1,0 +1,55 @@
+/* Global CSS file: Styles that apply to the entire application */
+/* This sets up Tailwind CSS and adds custom global styles */
+
+/* @tailwind directives: Import Tailwind's base, component, and utility styles */
+@tailwind base; /* Base styles (reset, defaults) */
+@tailwind components; /* Component classes */
+@tailwind utilities; /* Utility classes (like flex, grid, etc.) */
+
+/* @layer base: Styles that apply to base HTML elements */
+@layer base {
+  /* Apply to all elements: set default border color */
+  * {
+    border-color: rgb(217, 199, 240); /* All borders default to darker lavender (primary-100) */
+  }
+
+  /* Dark mode border colors */
+  .dark * {
+    border-color: rgb(55, 30, 88); /* Darker purple borders in dark mode (primary-800) */
+  }
+
+  /* Body element: main page background with gradient and text styling */
+  body {
+    background: linear-gradient(135deg, #F3EDFF 0%, #FFF8F0 50%, #FFFFFF 100%);
+    background-attachment: fixed; /* Fixed gradient background */
+    min-height: 100vh; /* Ensure full height */
+    color: rgb(38, 38, 38); /* Professional dark gray text (gray-800) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* antialiased = smooth text rendering (makes text look crisp) */
+
+    /* Font feature settings: enable kerning (spacing between letters) */
+    font-feature-settings: "kern" 1;
+    /* text-rendering: optimize for legibility (better text quality) */
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Dark mode body styles */
+  .dark body {
+    background: linear-gradient(135deg, #1D0F34 0%, #371E58 50%, #512D7C 100%);
+    color: rgb(229, 231, 235); /* Light gray text in dark mode (gray-200) */
+  }
+}
+
+/* @layer utilities: Custom utility classes we can use throughout the app */
+@layer utilities {
+  /* .transition-smooth: Custom transition timing for smooth animations */
+  .transition-smooth {
+    /* cubic-bezier: custom easing function (smooth acceleration/deceleration) */
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    /* transition-duration: how long animations take (200ms = fast but smooth) */
+    transition-duration: 200ms;
+  }
+}
+
+/* Baby Loader - Using GIF, no CSS animations needed */
