@@ -31,8 +31,8 @@ export interface CartItem {
   created_at: string; // When this item was added to the cart
 }
 
-// Role type: only ADMIN and VENDOR are stored; no role = customer
-export type UserRole = "ADMIN" | "VENDOR";
+// Role type: ADMIN, VENDOR, DOCTOR; no role = customer
+export type UserRole = "ADMIN" | "VENDOR" | "DOCTOR";
 
 // User interface: Stores information about a logged-in user
 export interface User {
@@ -177,9 +177,77 @@ export interface GetOrdersResponse {
   total: number; // Total number of orders (useful for pagination)
 }
 
-// Portal role from hostname: admin.localhost -> "admin", vendor.localhost -> "vendor", else undefined (customer)
-export function getPortalRoleFromHostname(hostname: string): "admin" | "vendor" | undefined {
+// ----- Doctor & Appointments (Phase 2) - contract for backend -----
+
+export interface Doctor {
+  id: string;
+  user_id?: string;
+  display_name: string;
+  specialty?: string;
+  bio?: string;
+  consultation_price: number;
+  timezone?: string;
+  created_at?: string;
+}
+
+/** Available slot: start and end as ISO strings. Backend GET /api/doctors/:id/availability returns { slots: Slot[] }. */
+export interface Slot {
+  start: string;
+  end: string;
+}
+
+export type AppointmentStatus = "CONFIRMED" | "CANCELLED" | "COMPLETED" | "CHECKED_IN";
+
+export interface Appointment {
+  id: string;
+  doctor_id: string;
+  customer_user_id: string;
+  child_name: string;
+  child_age_months?: number;
+  notes?: string;
+  slot_start: string;
+  slot_end: string;
+  status: AppointmentStatus;
+  qr_payload?: string;
+  created_at: string;
+  doctor?: Doctor;
+  price?: number;
+  customer_name?: string;
+}
+
+export interface Review {
+  id: string;
+  appointment_id: string;
+  rating: number;
+  comment?: string;
+  patient_name?: string;
+  created_at: string;
+}
+
+export interface DoctorStats {
+  total_consultations: number;
+  today_available: number;
+  total_value: number;
+}
+
+export interface CreateAppointmentRequest {
+  doctor_id: string;
+  slot_start: string;
+  slot_end: string;
+  child_name: string;
+  child_age_months?: number;
+  notes?: string;
+}
+
+export interface CreateAppointmentResponse {
+  appointment: Appointment;
+  qr_payload: string;
+}
+
+// Portal role from hostname: admin.localhost -> "admin", vendor.localhost -> "vendor", doctor.localhost -> "doctor", else undefined (customer)
+export function getPortalRoleFromHostname(hostname: string): "admin" | "vendor" | "doctor" | undefined {
   if (hostname === "admin.localhost") return "admin";
   if (hostname === "vendor.localhost") return "vendor";
+  if (hostname === "doctor.localhost") return "doctor";
   return undefined;
 }

@@ -3,12 +3,13 @@
 import { usePortal } from "@/lib/portal/context";
 import { AdminDashboard } from "./AdminDashboard";
 import { VendorDashboard } from "./VendorDashboard";
+import { DoctorDashboard } from "./DoctorDashboard";
 import Link from "next/link";
 import { Button } from "@/components/buttons/Button";
 
 /**
  * Renders the correct home content based on portal:
- * admin.localhost -> AdminDashboard, vendor.localhost -> VendorDashboard, else shop home.
+ * admin.localhost -> AdminDashboard, vendor.localhost -> VendorDashboard, doctor.localhost -> DoctorDashboard, else shop home.
  */
 export function PortalHome() {
   const portal = usePortal();
@@ -18,6 +19,9 @@ export function PortalHome() {
   }
   if (portal === "vendor") {
     return <VendorDashboard />;
+  }
+  if (portal === "doctor") {
+    return <DoctorDashboard />;
   }
 
   // Shop home (default)
@@ -35,15 +39,15 @@ export function PortalHome() {
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-24">
-        <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-8 border border-primary-200 dark:border-primary-800 opacity-60 shadow-soft dark:shadow-dark">
+        <Link href="/doctors" className="block bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-8 border border-primary-200 dark:border-primary-800 hover:opacity-90 shadow-soft dark:shadow-dark transition-opacity">
           <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">
             Doctor Consultations
           </h3>
-          <p className="text-sm text-primary-600 dark:text-primary-400 mb-4">Coming Soon</p>
+          <p className="text-sm text-primary-600 dark:text-primary-400 mb-4">Book an appointment with a doctor for your child.</p>
           <span className="inline-block px-3 py-1 bg-primary-200 dark:bg-primary-800 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
-            Phase 2
+            Book now
           </span>
-        </div>
+        </Link>
         <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-8 border border-primary-200 dark:border-primary-800 opacity-60 shadow-soft dark:shadow-dark">
           <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">
             Babysitter Services

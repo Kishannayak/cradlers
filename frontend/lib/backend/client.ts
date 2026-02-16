@@ -23,6 +23,13 @@ import {
   Product,
   CartItem,
   Order,
+  Doctor,
+  Slot,
+  Appointment,
+  Review,
+  DoctorStats,
+  CreateAppointmentRequest,
+  CreateAppointmentResponse,
 } from "@/lib/user-data/api";
 
 // API_BASE_URL: The address where our backend server lives
@@ -109,19 +116,30 @@ async function sendApiRequest<T = unknown>(options: ApiRequestOptions): Promise<
   }
 
   // Send the request and wait for response
-  const response = await fetch(fullUrl, fetchOptions);
-  
+  let response: Response;
+  try {
+    response = await fetch(fullUrl, fetchOptions);
+  } catch (e) {
+    const msg =
+      e instanceof TypeError && (e.message === "Failed to fetch" || e.message?.includes("fetch"))
+        ? `Cannot reach the API at ${fullUrl}. Make sure the backend is running (e.g. \`./mvnw spring-boot:run\` in the backend folder).`
+        : e instanceof Error
+          ? e.message
+          : "Network request failed.";
+    throw new Error(msg);
+  }
+
   // If response is not ok, throw an error
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({ error: "Request failed" }));
     throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
   }
-  
+
   // For requests that don't return data (like DELETE), return void
   if (response.status === 204 || method === "DELETE") {
     return undefined as T;
   }
-  
+
   // Parse and return JSON response
   return response.json() as Promise<T>;
 }
@@ -513,5 +531,79 @@ export const api = {
       },
       created_at: new Date().toISOString(), // When order was placed
     };
+  },
+
+  // ----- Doctors & Appointments – mock only (landing pages, no backend/DB) -----
+
+  async getDoctors(): Promise<Doctor[]> {
+    await logApiRequest({ method: "GET", endpoint: "/api/doctors" });
+    return [
+      { id: "doc-1", display_name: "Dr. John", specialty: "Pediatrics", consultation_price: 1000, created_at: new Date().toISOString() },
+      { id: "doc-2", display_name: "Dr. Sarah", specialty: "Child Development", consultation_price: 1200, created_at: new Date().toISOString() },
+    ];
+  },
+
+  async getDoctorAvailability(doctorId: string, from?: string, to?: string): Promise<Slot[]> {
+    await logApiRequest({ method: "GET", endpoint: `/api/doctors/${doctorId}/availability`, queryParams: from && to ? { from, to } : undefined });
+    const slots: Slot[] = [];
+    const start = from ? new Date(from) : new Date();
+    const end = to ? new Date(to) : new Date(start.getTime() + 14 * 24 * 60 * 60 * 1000);
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+      ["09:00", "09:30", "10:00", "11:00", "16:00", "16:30", "17:00"].forEach((time) => {
+        const [h, m] = time.split(":").map(Number);
+        const slotStart = new Date(d);
+        slotStart.setHours(h, m, 0, 0);
+        const slotEnd = new Date(slotStart.getTime() + 30 * 60000);
+        if (slotStart >= start && slotEnd <= end) slots.push({ start: slotStart.toISOString(), end: slotEnd.toISOString() });
+      });
+    }
+    return slots.slice(0, 14);
+  },
+
+  async createAppointment(request: CreateAppointmentRequest): Promise<CreateAppointmentResponse> {
+    await logApiRequest({ method: "POST", endpoint: "/api/appointments", payload: request });
+    const appointment: Appointment = {
+      id: `apt-${Date.now()}`,
+      doctor_id: request.doctor_id,
+      customer_user_id: "customer-1",
+      child_name: request.child_name,
+      child_age_months: request.child_age_months,
+      notes: request.notes,
+      slot_start: request.slot_start,
+      slot_end: request.slot_end,
+      status: "CONFIRMED",
+      qr_payload: `apt-${Date.now()}:mock-token`,
+      created_at: new Date().toISOString(),
+      price: 1000,
+    };
+    return { appointment, qr_payload: appointment.qr_payload ?? "" };
+  },
+
+  async getDoctorProfile(): Promise<Doctor> {
+    await logApiRequest({ method: "GET", endpoint: "/api/doctor/me" });
+    return { id: "doc-1", display_name: "Dr. John", specialty: "Pediatrics", consultation_price: 1000, created_at: new Date().toISOString() };
+  },
+
+  async getDoctorAppointments(_params?: { from?: string; to?: string; status?: string }): Promise<Appointment[]> {
+    await logApiRequest({ method: "GET", endpoint: "/api/doctor/appointments" });
+    const base = new Date();
+    base.setHours(9, 0, 0, 0);
+    return [
+      { id: "apt-1", doctor_id: "doc-1", customer_user_id: "u1", child_name: "Lisa", slot_start: new Date(base).toISOString(), slot_end: new Date(base.getTime() + 30 * 60000).toISOString(), status: "CONFIRMED", created_at: new Date().toISOString(), customer_name: "Lisa", price: 1000 },
+      { id: "apt-2", doctor_id: "doc-1", customer_user_id: "u2", child_name: "Sanjay", slot_start: new Date(base.getTime() + 30 * 60000).toISOString(), slot_end: new Date(base.getTime() + 60 * 60000).toISOString(), status: "CONFIRMED", created_at: new Date().toISOString(), customer_name: "Sanjay", price: 1000 },
+    ];
+  },
+
+  async getDoctorStats(): Promise<DoctorStats> {
+    await logApiRequest({ method: "GET", endpoint: "/api/doctor/stats" });
+    return { total_consultations: 350, today_available: 10, total_value: 50000 };
+  },
+
+  async getDoctorReviews(): Promise<Review[]> {
+    await logApiRequest({ method: "GET", endpoint: "/api/doctor/reviews" });
+    return [
+      { id: "r1", appointment_id: "apt-4", rating: 5, comment: "Good Doctor", patient_name: "Jessica", created_at: new Date().toISOString() },
+      { id: "r2", appointment_id: "apt-5", rating: 5, comment: "Best Doctor", patient_name: "Tony", created_at: new Date().toISOString() },
+    ];
   },
 };

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, ReactNode } from "react";
 
-export type PortalType = "admin" | "vendor" | "shop";
+export type PortalType = "admin" | "vendor" | "doctor" | "shop";
 
 const PortalContext = createContext<PortalType>("shop");
 

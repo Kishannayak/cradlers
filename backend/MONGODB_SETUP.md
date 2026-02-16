@@ -89,6 +89,9 @@ The application automatically creates these collections:
 - `users` - User accounts
 - `otp_codes` - OTP verification codes
 - `addresses` - User shipping addresses
+- `doctors` - Doctor profiles (Phase 2)
+- `appointments` - Booked doctor appointments (Phase 2)
+- `reviews` - Patient reviews of doctors (Phase 2)
 
 ## Troubleshooting
 

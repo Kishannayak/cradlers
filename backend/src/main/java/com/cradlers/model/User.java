@@ -24,7 +24,7 @@ public class User {
     
     private String email;
     
-    /** Role: ADMIN or VENDOR only. Null = customer (no role stored). */
+    /** Role: ADMIN, VENDOR, or DOCTOR. Null = customer (no role stored). */
     private String role;
     
     @DBRef(lazy = true)

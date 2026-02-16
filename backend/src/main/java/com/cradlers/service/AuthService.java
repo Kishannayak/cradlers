@@ -48,6 +48,9 @@ public class AuthService {
     @Value("${app.bootstrap-vendor-phones:}")
     private String bootstrapVendorPhones;
 
+    @Value("${app.bootstrap-doctor-phones:}")
+    private String bootstrapDoctorPhones;
+
     /**
      * Request OTP for phone number
      * In production, this would send SMS via a service like Twilio
@@ -114,6 +117,9 @@ public class AuthService {
         } else if (isBootstrapPhone(phone, bootstrapVendorPhones)) {
             user.setRole("VENDOR");
             userRepository.save(user);
+        } else if (isBootstrapPhone(phone, bootstrapDoctorPhones)) {
+            user.setRole("DOCTOR");
+            userRepository.save(user);
         }
         // Otherwise existing users keep their existing role
 
@@ -154,13 +160,14 @@ public class AuthService {
     }
 
     /**
-     * Normalize role from request: admin -> ADMIN, vendor -> VENDOR. Else null (customer).
+     * Normalize role from request: admin -> ADMIN, vendor -> VENDOR, doctor -> DOCTOR. Else null (customer).
      */
     private String normalizeRole(String role) {
         if (role == null || role.isBlank()) return null;
         String r = role.trim().toUpperCase();
         if ("ADMIN".equals(r)) return "ADMIN";
         if ("VENDOR".equals(r)) return "VENDOR";
+        if ("DOCTOR".equals(r)) return "DOCTOR";
         return null;
     }
 

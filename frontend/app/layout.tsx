@@ -3,6 +3,9 @@
 // In Next.js App Router, this file applies to all pages automatically
 
 import type { Metadata } from "next";
+
+// Force dynamic rendering so root and all pages are always server-rendered (avoids 404 on /)
+export const dynamic = "force-dynamic";
 import "./globals.css";
 import { ThemeProvider } from "@/lib/theme/theme-provider";
 import { Chatbot } from "@/components/chat/Chatbot";

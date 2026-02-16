@@ -61,16 +61,17 @@ The application uses OTP-based authentication:
 2. Receives 6-digit OTP code (logged to backend console in development)
 3. Enters OTP to verify and log in
 
-**Roles** are assigned by portal (subdomain). Only **ADMIN** and **VENDOR** are stored; users with no role are customers.
+**Roles** are assigned by portal (subdomain). **ADMIN**, **VENDOR**, and **DOCTOR** are stored; users with no role are customers.
 - **ADMIN** — log in at `http://admin.localhost:3000` (admin portal)
 - **VENDOR** — log in at `http://vendor.localhost:3000` (vendor portal)
-- **Customer** — no role stored; log in at `http://localhost:3000` (shop) or anyone without ADMIN/VENDOR
+- **DOCTOR** — log in at `http://doctor.localhost:3000` (doctor portal)
+- **Customer** — no role stored; log in at `http://localhost:3000` (shop) or anyone without ADMIN/VENDOR/DOCTOR
 
 New users get ADMIN or VENDOR only when signing up from admin/vendor portals; otherwise no role (customer). Add to `/etc/hosts` (or `C:\Windows\System32\drivers\etc\hosts` on Windows):
 ```
-127.0.0.1 admin.localhost vendor.localhost
+127.0.0.1 admin.localhost vendor.localhost doctor.localhost
 ```
-Then open `http://admin.localhost:3000` or `http://vendor.localhost:3000` for the respective dashboards.
+Then open `http://admin.localhost:3000`, `http://vendor.localhost:3000`, or `http://doctor.localhost:3000` for the respective dashboards.
 
 ## 📝 Environment Variables
 
@@ -83,8 +84,8 @@ NEXT_PUBLIC_API_URL=http://localhost:8000  # Backend API URL
 ```properties
 spring.data.mongodb.uri=mongodb://localhost:27017/cradlers
 jwt.secret=your-secret-key
-# Include admin and vendor subdomains for CORS
-cors.allowed-origins=http://localhost:3000,http://admin.localhost:3000,http://vendor.localhost:3000
+# Include frontend and portal subdomains for CORS
+cors.allowed-origins=http://localhost:3000,http://admin.localhost:3000,http://vendor.localhost:3000,http://doctor.localhost:3000
 ```
 
 ## 🧪 Testing the Login Flow
