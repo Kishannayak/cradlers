@@ -8,46 +8,52 @@
 
 /* @layer base: Styles that apply to base HTML elements */
 @layer base {
-  /* Apply to all elements: set default border color */
+  /* Kids Doctor App theme: soft borders */
   * {
-    border-color: rgb(217, 199, 240); /* All borders default to darker lavender (primary-100) */
+    border-color: rgb(186, 230, 253); /* primary-100 / sky-100 */
   }
 
-  /* Dark mode border colors */
   .dark * {
-    border-color: rgb(55, 30, 88); /* Darker purple borders in dark mode (primary-800) */
+    border-color: rgb(12, 74, 110); /* primary-800 / sky-900 */
   }
 
-  /* Body element: main page background with gradient and text styling */
+  /* Body: soft light blue background with subtle kid-friendly gradient pattern */
   body {
-    background: linear-gradient(135deg, #F3EDFF 0%, #FFF8F0 50%, #FFFFFF 100%);
-    background-attachment: fixed; /* Fixed gradient background */
-    min-height: 100vh; /* Ensure full height */
-    color: rgb(38, 38, 38); /* Professional dark gray text (gray-800) */
+    background-color: #E8F4FC;
+    background-image: radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 45%),
+      radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.06) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.05) 0%, transparent 55%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: rgb(30, 41, 59);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* antialiased = smooth text rendering (makes text look crisp) */
-
-    /* Font feature settings: enable kerning (spacing between letters) */
     font-feature-settings: "kern" 1;
-    /* text-rendering: optimize for legibility (better text quality) */
     text-rendering: optimizeLegibility;
   }
 
-  /* Dark mode body styles */
   .dark body {
-    background: linear-gradient(135deg, #1D0F34 0%, #371E58 50%, #512D7C 100%);
-    color: rgb(229, 231, 235); /* Light gray text in dark mode (gray-200) */
+    background: linear-gradient(135deg, #082F49 0%, #0C4A6E 50%, #075985 100%);
+    background-image: linear-gradient(135deg, #082F49 0%, #0C4A6E 50%, #075985 100%);
+    color: rgb(226, 232, 240);
   }
 }
 
-/* @layer utilities: Custom utility classes we can use throughout the app */
+/* Dashboard main area: same kid-friendly soft blue background (for sidebar layouts) */
+.dashboard-main-bg {
+  background-color: #E8F4FC;
+  background-image: radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.05) 0%, transparent 55%);
+}
+.dark .dashboard-main-bg {
+  background-color: #082F49;
+  background-image: linear-gradient(135deg, #082F49 0%, #0C4A6E 50%, #075985 100%);
+}
+
 @layer utilities {
-  /* .transition-smooth: Custom transition timing for smooth animations */
   .transition-smooth {
-    /* cubic-bezier: custom easing function (smooth acceleration/deceleration) */
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    /* transition-duration: how long animations take (200ms = fast but smooth) */
     transition-duration: 200ms;
   }
 }

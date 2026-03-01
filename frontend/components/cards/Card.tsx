@@ -21,9 +21,9 @@ export const Card: React.FC<CardProps> = ({
   className = "", // Default to empty string if no extra classes
   onClick, // Optional click handler
 }) => {
-  // baseStyles: CSS classes that all cards have
+  // baseStyles: white cards, soft blue shadow, very rounded (kid-app theme)
   const baseStyles =
-    "bg-gradient-card dark:bg-gradient-card-dark rounded-2xl border border-primary-200 dark:border-primary-800 shadow-soft dark:shadow-dark transition-all duration-200 hover:shadow-soft-lg dark:hover:shadow-dark-lg hover:border-primary-300 dark:hover:border-primary-700 overflow-hidden";
+    "bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 shadow-soft dark:shadow-dark transition-all duration-200 hover:shadow-soft-lg dark:hover:shadow-dark-lg overflow-hidden";
   // bg-gradient-card = subtle gradient background (light mode)
   // dark:bg-gradient-card-dark = dark gradient background (dark mode)
   // rounded-2xl = very rounded corners

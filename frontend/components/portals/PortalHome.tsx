@@ -39,39 +39,39 @@ export function PortalHome() {
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-24">
-        <Link href="/doctors" className="block bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-8 border border-primary-200 dark:border-primary-800 hover:opacity-90 shadow-soft dark:shadow-dark transition-opacity">
+        <Link href="/doctors" className="block bg-white dark:bg-gray-800/95 rounded-3xl p-8 border border-primary-100 dark:border-primary-800 hover:shadow-soft-lg dark:hover:shadow-dark-lg shadow-soft dark:shadow-dark transition-shadow">
           <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">
             Doctor Consultations
           </h3>
           <p className="text-sm text-primary-600 dark:text-primary-400 mb-4">Book an appointment with a doctor for your child.</p>
-          <span className="inline-block px-3 py-1 bg-primary-200 dark:bg-primary-800 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
+          <span className="inline-block px-3 py-1.5 bg-theme-accent text-white text-xs font-medium rounded-full">
             Book now
           </span>
         </Link>
-        <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-8 border border-primary-200 dark:border-primary-800 opacity-60 shadow-soft dark:shadow-dark">
+        <div className="bg-white dark:bg-gray-800/95 rounded-3xl p-8 border border-primary-100 dark:border-primary-800 opacity-70 shadow-soft dark:shadow-dark">
           <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">
             Babysitter Services
           </h3>
           <p className="text-sm text-primary-600 dark:text-primary-400 mb-4">Coming Soon</p>
-          <span className="inline-block px-3 py-1 bg-primary-200 dark:bg-primary-800 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
+          <span className="inline-block px-3 py-1.5 bg-slate-200 dark:bg-slate-600 text-theme-muted dark:text-slate-300 text-xs font-medium rounded-full">
             Phase 2
           </span>
         </div>
-        <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-8 border border-primary-200 dark:border-primary-800 opacity-60 shadow-soft dark:shadow-dark">
+        <div className="bg-white dark:bg-gray-800/95 rounded-3xl p-8 border border-primary-100 dark:border-primary-800 opacity-70 shadow-soft dark:shadow-dark">
           <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">
             School Programs
           </h3>
           <p className="text-sm text-primary-600 dark:text-primary-400 mb-4">Coming Soon</p>
-          <span className="inline-block px-3 py-1 bg-primary-200 dark:bg-primary-800 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
+          <span className="inline-block px-3 py-1.5 bg-slate-200 dark:bg-slate-600 text-theme-muted dark:text-slate-300 text-xs font-medium rounded-full">
             Phase 2
           </span>
         </div>
-        <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl p-8 border border-primary-200 dark:border-primary-800 opacity-60 shadow-soft dark:shadow-dark">
+        <div className="bg-white dark:bg-gray-800/95 rounded-3xl p-8 border border-primary-100 dark:border-primary-800 opacity-70 shadow-soft dark:shadow-dark">
           <h3 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">
             Subscriptions
           </h3>
           <p className="text-sm text-primary-600 dark:text-primary-400 mb-4">Coming Soon</p>
-          <span className="inline-block px-3 py-1 bg-primary-200 dark:bg-primary-800 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
+          <span className="inline-block px-3 py-1.5 bg-slate-200 dark:bg-slate-600 text-theme-muted dark:text-slate-300 text-xs font-medium rounded-full">
             Phase 2
           </span>
         </div>

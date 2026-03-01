@@ -1,14 +1,14 @@
-# Build stage
-FROM eclipse-temurin:17-jdk-alpine AS build
+# Build stage (use Debian base - Alpine has SSL issues with MongoDB Atlas)
+FROM eclipse-temurin:17-jdk-jammy AS build
 WORKDIR /app
 
-RUN apk add --no-cache maven
+RUN apt-get update && apt-get install -y --no-install-recommends maven && rm -rf /var/lib/apt/lists/*
 COPY pom.xml ./
 COPY src ./src/
 RUN mvn -B package -DskipTests -q
 
-# Run stage
-FROM eclipse-temurin:17-jre-alpine
+# Run stage (Debian base for reliable TLS to Atlas)
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
 COPY --from=build /app/target/*.jar app.jar

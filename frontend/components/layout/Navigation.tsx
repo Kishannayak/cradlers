@@ -30,8 +30,8 @@ export const Navigation = () => {
   const cartItemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    // Navigation bar: sticky at top, with backdrop blur and gradient
-    <nav className="sticky top-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-primary-200 dark:border-primary-800 shadow-soft dark:shadow-dark">
+    // Navigation: white/light bar, soft blue shadow (kid-app theme)
+    <nav className="sticky top-0 z-40 bg-white/98 dark:bg-gray-900/98 backdrop-blur-md border-b border-primary-100 dark:border-primary-800 shadow-soft dark:shadow-dark rounded-b-2xl">
       {/* sticky = stays at top when scrolling
           top-0 = stick to top of page
           z-40 = high z-index (appears above other content)
@@ -59,8 +59,8 @@ export const Navigation = () => {
 
           {/* Logo/Home link */}
           <Link
-            href="/" // Links to homepage
-            className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-400 dark:to-primary-500 bg-clip-text text-transparent hover:from-primary-700 hover:to-primary-800 dark:hover:from-primary-300 dark:hover:to-primary-400 transition-all duration-200"
+            href="/"
+            className="text-2xl font-bold text-theme-accent dark:text-primary-300 hover:text-theme-accent-hover dark:hover:text-primary-200 transition-colors duration-200"
             // text-2xl = extra large text
             // font-bold = bold weight
             // bg-gradient-to-r = gradient from left to right
@@ -100,7 +100,7 @@ export const Navigation = () => {
               Cart
               {/* Show badge with item count if cart has items */}
               {cartItemCount > 0 && (
-                <span className="absolute -top-2 -right-2 w-5 h-5 bg-gradient-purple text-white text-xs font-semibold rounded-full flex items-center justify-center shadow-baby">
+                <span className="absolute -top-2 -right-2 w-5 h-5 bg-theme-accent text-white text-xs font-semibold rounded-full flex items-center justify-center shadow-soft">
                   {/* absolute = position relative to parent
                       -top-2 -right-2 = position slightly above and right of text
                       w-5 h-5 = 20px × 20px circle

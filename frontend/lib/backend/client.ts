@@ -367,22 +367,19 @@ export const api = {
 
   // Auth section: Functions for user authentication
 
-  // requestOTP: Sends a one-time password (OTP) code to the user's phone
-  async requestOTP(request: OTPLoginRequest): Promise<void> {
-    // Log the request
+  // requestOTP: Request OTP for phone; backend returns the OTP so we can show it on screen
+  async requestOTP(request: OTPLoginRequest): Promise<{ message: string; otp: string }> {
     await logApiRequest({
-      method: "POST", // Creating/sending the OTP
-      endpoint: "/api/auth/otp", // OTP endpoint
-      payload: request, // Contains the phone number
-    });
-    
-    // Send actual request to backend
-    await sendApiRequest({
       method: "POST",
       endpoint: "/api/auth/otp",
       payload: request,
     });
-    // Returns nothing - code is sent via SMS
+    const response = await sendApiRequest<{ message: string; otp: string }>({
+      method: "POST",
+      endpoint: "/api/auth/otp",
+      payload: request,
+    });
+    return response;
   },
 
   // verifyOTP: Checks if the code the user entered is correct

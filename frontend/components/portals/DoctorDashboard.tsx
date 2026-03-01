@@ -12,7 +12,7 @@ function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5">
       {[1, 2, 3, 4, 5].map((i) => (
-        <span key={i} className={i <= rating ? "text-amber-500" : "text-gray-300 dark:text-gray-600"}>
+        <span key={i} className={i <= rating ? "text-theme-star" : "text-gray-300 dark:text-gray-600"}>
           ★
         </span>
       ))}
@@ -101,7 +101,7 @@ export function DoctorDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <section className="bg-white dark:bg-gray-900 rounded-2xl border border-primary-200 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
+          <section className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
             <h2 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-3">Appointments</h2>
             <ul className="space-y-2">
               {upcoming.map((apt) => (
@@ -113,13 +113,13 @@ export function DoctorDashboard() {
             </ul>
           </section>
 
-          <section className="bg-white dark:bg-gray-900 rounded-2xl border border-primary-200 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
+          <section className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
             <h2 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">Video consult appointments</h2>
             <p className="text-sm text-primary-600 dark:text-primary-400 mb-3">Remaining appointments today</p>
             <p className="text-sm text-gray-700 dark:text-gray-300">{upcoming.length} scheduled</p>
           </section>
 
-          <section className="bg-white dark:bg-gray-900 rounded-2xl border border-primary-200 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
+          <section className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
             <h2 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-3">Reviews</h2>
             <div className="flex items-center gap-2 mb-3">
               <StarRating rating={Math.round(avgRating)} />
@@ -136,7 +136,7 @@ export function DoctorDashboard() {
         </div>
 
         <div className="space-y-6">
-          <section className="bg-white dark:bg-gray-900 rounded-2xl border border-primary-200 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
+          <section className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
             <h2 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-3">Customer Graph</h2>
             <div className="h-32 flex items-end gap-1">
               {[40, 65, 45, 80, 55, 70, 90].map((h, i) => (
@@ -150,7 +150,7 @@ export function DoctorDashboard() {
             <p className="text-xs text-primary-600 dark:text-primary-400 mt-2">Consultations over time</p>
           </section>
 
-          <section className="bg-white dark:bg-gray-900 rounded-2xl border border-primary-200 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
+          <section className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
             <h2 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-3">Top Doctor Consults / Bookings Notes</h2>
             <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
               <li>Dr. Jeff – Allowance</li>
@@ -164,27 +164,27 @@ export function DoctorDashboard() {
 
       {stats && (
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl border border-primary-200 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
+          <div className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
             <p className="text-sm text-primary-600 dark:text-primary-400">Total Consultation</p>
             <p className="text-2xl font-bold text-primary-700 dark:text-primary-300">{stats.total_consultations} people</p>
           </div>
-          <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl border border-primary-200 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
+          <div className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
             <p className="text-sm text-primary-600 dark:text-primary-400">Today&apos;s Available</p>
             <p className="text-2xl font-bold text-primary-700 dark:text-primary-300">{stats.today_available} people</p>
           </div>
-          <div className="bg-primary-50 dark:bg-primary-900/30 rounded-2xl border border-primary-200 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
+          <div className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
             <p className="text-sm text-primary-600 dark:text-primary-400">Total Value</p>
             <p className="text-2xl font-bold text-primary-700 dark:text-primary-300">{stats.total_value.toLocaleString()} F</p>
           </div>
         </div>
       )}
 
-      <section className="bg-white dark:bg-gray-900 rounded-2xl border border-primary-200 dark:border-primary-800 overflow-hidden shadow-soft dark:shadow-dark">
-        <h2 className="text-lg font-semibold text-primary-700 dark:text-primary-300 p-4 border-b border-primary-200 dark:border-primary-800">Appointments</h2>
+      <section className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 overflow-hidden shadow-soft dark:shadow-dark">
+        <h2 className="text-lg font-semibold text-primary-700 dark:text-primary-300 p-4 border-b border-primary-100 dark:border-primary-800">Appointments</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300">
+              <tr className="bg-primary-50 dark:bg-primary-900/40 text-primary-700 dark:text-primary-300">
                 <th className="text-left p-3 font-medium">Name</th>
                 <th className="text-left p-3 font-medium">Time</th>
                 <th className="text-left p-3 font-medium">Date</th>

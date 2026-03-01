@@ -21,7 +21,7 @@ function LoginFallback() {
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">Welcome Back</h1>
         <p className="text-gray-600 dark:text-gray-400">Loading...</p>
       </div>
-      <div className="bg-gradient-card dark:bg-gradient-card-dark rounded-2xl border border-primary-200 dark:border-primary-800 p-8 shadow-soft dark:shadow-dark animate-pulse min-h-[320px]" />
+      <div className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-8 shadow-soft dark:shadow-dark animate-pulse min-h-[320px]" />
     </div>
   );
 }

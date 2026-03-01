@@ -54,6 +54,8 @@ jwt.expiration=86400000
 cors.allowed-origins=http://localhost:3000
 ```
 
+OTP is returned in the API response and shown on the login screen (no SMS).
+
 ## API Endpoints
 
 ### Authentication
@@ -121,4 +123,3 @@ brew install maven
 # Or use Maven Wrapper (if available)
 ./mvnw clean install
 ```
-

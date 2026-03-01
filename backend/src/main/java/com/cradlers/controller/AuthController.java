@@ -36,10 +36,11 @@ public class AuthController {
     public ResponseEntity<Map<String, String>> requestOtp(@Valid @RequestBody OtpLoginRequest request) {
         try {
             logger.info("OTP request received for phone: {}", request.getPhone());
-            authService.requestOtp(request);
+            String otp = authService.requestOtp(request);
             
             Map<String, String> response = new HashMap<>();
             response.put("message", "OTP sent successfully");
+            response.put("otp", otp);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             logger.error("Error requesting OTP", e);

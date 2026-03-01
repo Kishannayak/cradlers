@@ -52,29 +52,20 @@ public class AuthService {
     private String bootstrapDoctorPhones;
 
     /**
-     * Request OTP for phone number
-     * In production, this would send SMS via a service like Twilio
+     * Request OTP for phone number. Returns the OTP so the client can display it (no SMS).
      */
-    public void requestOtp(OtpLoginRequest request) {
+    public String requestOtp(OtpLoginRequest request) {
         String phone = request.getPhone();
         logger.info("Requesting OTP for phone: {}", phone);
         
-        // Generate 6-digit OTP
         String otp = generateOtp();
-        
-        // Calculate expiry time (10 minutes from now)
         LocalDateTime expiresAt = LocalDateTime.now().plusMinutes(OTP_EXPIRY_MINUTES);
         
-        // Save OTP to database
         OtpCode otpCode = new OtpCode(phone, otp, expiresAt);
         otpCodeRepository.save(otpCode);
         
-        // In production, send SMS here
-        // For now, we'll just log it
-        logger.info("OTP generated for {}: {} (expires at {})", phone, otp, expiresAt);
-        
-        // TODO: Integrate with SMS service (Twilio, AWS SNS, etc.)
-        // smsService.sendOtp(phone, otp);
+        logger.info("OTP generated for {} (expires at {})", phone, expiresAt);
+        return otp;
     }
 
     /**

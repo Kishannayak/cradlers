@@ -4,29 +4,88 @@ import Link from "next/link";
 import { useAuthStore } from "@/lib/user-state/auth-store";
 import { Button } from "@/components/buttons/Button";
 
+function StatCard({
+  label,
+  value,
+  icon,
+}: {
+  label: string;
+  value: string | number;
+  icon: string;
+}) {
+  return (
+    <div className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
+      <p className="text-sm text-primary-600 dark:text-primary-400 mb-1">{label}</p>
+      <div className="flex items-center justify-between">
+        <p className="text-2xl font-bold text-primary-700 dark:text-primary-300">{value}</p>
+        <span className="text-3xl opacity-80" aria-hidden>{icon}</span>
+      </div>
+    </div>
+  );
+}
+
 export function VendorDashboard() {
   const user = useAuthStore((state) => state.user);
+  const name = user?.phone ? user.phone.slice(-4) : "Vendor";
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-24">
-      <div className="text-center mb-16">
-        <h1 className="text-5xl font-bold text-emerald-800 dark:text-emerald-200 mb-6">
-          Vendor Dashboard
-        </h1>
-        <p className="text-xl text-emerald-700/80 dark:text-emerald-300/80 max-w-2xl mx-auto mb-12">
-          Manage your vendor account from vendor.localhost. Log in here to get the
-          VENDOR role.
-        </p>
-        {user ? (
-          <p className="text-lg text-emerald-700 dark:text-emerald-300">
-            Logged in as {user.phone} — Role: <strong>{user.role ?? "Customer"}</strong>
+    <div className="p-6 max-w-7xl mx-auto space-y-6">
+      <h1 className="text-2xl font-bold text-primary-700 dark:text-primary-300">Hello {name}.</h1>
+
+      {!user ? (
+        <div className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-8 shadow-soft dark:shadow-dark text-center max-w-xl mx-auto">
+          <h2 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-2">Vendor Dashboard</h2>
+          <p className="text-sm text-primary-600 dark:text-primary-400 mb-6">
+            Manage your vendor account from vendor.localhost. Log in here to get the VENDOR role.
           </p>
-        ) : (
           <Link href="/login">
             <Button size="lg">Vendor Login</Button>
           </Link>
-        )}
-      </div>
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <StatCard label="Total Orders" value="—" icon="📦" />
+            <StatCard label="Revenue" value="—" icon="💰" />
+            <StatCard label="Products" value="—" icon="🏷️" />
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <section className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
+              <h2 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-3">Recent Orders</h2>
+              <p className="text-sm text-primary-600 dark:text-primary-400">Orders will appear here.</p>
+            </section>
+            <section className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 p-6 shadow-soft dark:shadow-dark">
+              <h2 className="text-lg font-semibold text-primary-700 dark:text-primary-300 mb-3">Customer Growth</h2>
+              <div className="h-32 flex items-end gap-1">
+                {[40, 65, 45, 80, 55, 70, 90].map((h, i) => (
+                  <div
+                    key={i}
+                    className="flex-1 bg-primary-400 dark:bg-primary-600 rounded-t min-w-0"
+                    style={{ height: `${h}%` }}
+                  />
+                ))}
+              </div>
+              <p className="text-xs text-primary-600 dark:text-primary-400 mt-2">Sales over time</p>
+            </section>
+          </div>
+
+          <section className="bg-white dark:bg-gray-800/95 rounded-3xl border border-primary-100 dark:border-primary-800 overflow-hidden shadow-soft dark:shadow-dark">
+            <h2 className="text-lg font-semibold text-primary-700 dark:text-primary-300 p-4 border-b border-primary-100 dark:border-primary-800">
+              Account
+            </h2>
+            <div className="p-4">
+              <p className="text-sm text-primary-600 dark:text-primary-400">
+                {user.phone} — Role: <strong>{user.role ?? "Customer"}</strong>
+              </p>
+              <div className="mt-3 flex gap-2">
+                <Button variant="outline" size="sm">Orders</Button>
+                <Button variant="outline" size="sm">Products</Button>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
     </div>
   );
 }

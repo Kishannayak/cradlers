@@ -34,7 +34,7 @@ All free tier. Steps in order.
    |-----|--------|
    | `SPRING_DATA_MONGODB_URI` | Your **MONGODB_URI** from step 1 |
    | `JWT_SECRET` | Long random string (e.g. from [randomkeygen.com](https://randomkeygen.com)) |
-   | `CORS_ALLOWED_ORIGINS` | `https://YOUR_VERCEL_URL.vercel.app` (add after step 3; use `*` temporarily to test) |
+   | `CORS_ALLOWED_ORIGINS` | Your frontend origin **exactly**, e.g. `https://cradlers-delta.vercel.app` — no trailing slash. Multiple origins: comma-separated. (`*` does not work because the API uses credentials.) |
 
 9. **Create Web Service**. Wait until **Live**.
 10. Copy the backend URL (e.g. `https://cradlers-api.onrender.com`) → **BACKEND_URL**.
@@ -69,3 +69,18 @@ All free tier. Steps in order.
 - **Database:** MongoDB Atlas (used by Render).
 
 Render free tier may sleep after inactivity; the first request can take ~30–60 seconds.
+
+---
+
+## Troubleshooting
+
+### 403 on OPTIONS / CORS errors for all APIs
+
+If the browser shows **403 Forbidden** on `OPTIONS` requests to `https://cradlers.onrender.com/api/...` or "CORS error", the backend is rejecting the preflight because your **frontend origin is not allowed**.
+
+1. Open **Render** → your backend service → **Environment**.
+2. Add or edit **`CORS_ALLOWED_ORIGINS`**.
+3. Set the value to your **exact** frontend URL, with no trailing slash, for example:
+   - `https://cradlers-delta.vercel.app`
+   - For multiple origins: `https://cradlers-delta.vercel.app,http://localhost:3000`
+4. Save. Render will redeploy; after that, OPTIONS and API calls from that origin will succeed.

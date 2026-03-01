@@ -10,39 +10,48 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Professional Baby Products E-commerce Palette - Darker with Gradient Feel
-        // Primary: Deeper Lavender/Purple (darker version of GIF colors)
-        primary: {
-          50: "#F3EDFF",   // Lightest lavender
-          100: "#D9C7F0",  // Light lavender (darker than before)
-          200: "#C4A8E5",  // Medium lavender (darker pacifier color)
-          300: "#AF89DA",
-          400: "#9A6ACF",
-          500: "#854BC4",  // Main purple (darker)
-          600: "#6B3CA0",  // Darker purple
-          700: "#512D7C",  // Deep purple
-          800: "#371E58",  // Very dark purple
-          900: "#1D0F34",  // Darkest purple
+        // Kids Doctor App theme: soft sky blue, white cards, gentle accents
+        theme: {
+          bg: "#E8F4FC",       // Page background (soft light blue)
+          "bg-subtle": "#D6EEFA", // Slightly deeper for sidebar/sections
+          card: "#FFFFFF",
+          accent: "#0EA5E9",   // Sky blue for buttons/active (sky-500)
+          "accent-hover": "#0284C7", // Darker on hover (sky-600)
+          muted: "#64748B",    // Slate-500 for secondary text
+          star: "#FBBF24",     // Amber for star ratings
         },
-        // Secondary: Deeper Peach/Pink (darker version)
+        // Primary: Soft blue palette (replaces purple for cohesive kid-app feel)
+        primary: {
+          50: "#E0F2FE",   // Sky-50
+          100: "#BAE6FD",  // Sky-100
+          200: "#7DD3FC",  // Sky-200
+          300: "#38BDF8",  // Sky-300
+          400: "#0EA5E9",  // Sky-500
+          500: "#0284C7",  // Sky-600
+          600: "#0369A1",  // Sky-700
+          700: "#075985",  // Sky-800
+          800: "#0C4A6E",  // Sky-900
+          900: "#082F49",  // Sky-950
+        },
+        // Secondary: Soft peach/warm (for cards, badges)
         secondary: {
-          50: "#FFF0EB",   // Lightest peach
-          100: "#FFD9CC",  // Light peach (darker baby skin)
-          200: "#FFC2AD",  // Medium peach
-          300: "#FFAB8E",
-          400: "#FF946F",
-          500: "#FF7D50",  // Main coral (darker)
-          600: "#CC643F",  // Darker coral
-          700: "#994B2F",  // Deep coral
-          800: "#66321F",  // Very dark coral
-          900: "#33190F",  // Darkest coral
+          50: "#FFF7ED",   // Orange-50
+          100: "#FFEDD5",  // Orange-100
+          200: "#FED7AA",  // Orange-200
+          300: "#FDBA74",
+          400: "#FB923C",
+          500: "#F97316",  // Orange-500
+          600: "#EA580C",
+          700: "#C2410C",
+          800: "#9A3412",
+          900: "#7C2D12",
         },
         // Accent: Cream/White
         accent: {
-          50: "#FFFFFF",   // Pure white
-          100: "#FFF8F0",  // Cream white
-          200: "#FFF1E0",  // Light cream
-          300: "#FFEAD0",  // Medium cream
+          50: "#FFFFFF",
+          100: "#FFF8F0",
+          200: "#FFF1E0",
+          300: "#FFEAD0",
         },
         // Neutral: Warm, soft grays
         gray: {
@@ -80,13 +89,14 @@ const config: Config = {
         },
       },
       backgroundImage: {
-        'gradient-primary': 'linear-gradient(135deg, #D9C7F0 0%, #C4A8E5 50%, #AF89DA 100%)',
-        'gradient-secondary': 'linear-gradient(135deg, #FFD9CC 0%, #FFC2AD 50%, #FFAB8E 100%)',
-        'gradient-purple': 'linear-gradient(135deg, #854BC4 0%, #6B3CA0 50%, #512D7C 100%)',
-        'gradient-soft': 'linear-gradient(135deg, #F3EDFF 0%, #FFF8F0 100%)',
-        'gradient-card': 'linear-gradient(135deg, #FFFFFF 0%, #F3EDFF 100%)',
-        'gradient-dark': 'linear-gradient(135deg, #1D0F34 0%, #371E58 50%, #512D7C 100%)',
-        'gradient-card-dark': 'linear-gradient(135deg, #262626 0%, #1D0F34 100%)',
+        'gradient-primary': 'linear-gradient(135deg, #7DD3FC 0%, #38BDF8 50%, #0EA5E9 100%)',
+        'gradient-secondary': 'linear-gradient(135deg, #FFEDD5 0%, #FED7AA 50%, #FDBA74 100%)',
+        'gradient-purple': 'linear-gradient(135deg, #0EA5E9 0%, #0284C7 50%, #0369A1 100%)',
+        'gradient-soft': 'linear-gradient(135deg, #E0F2FE 0%, #E8F4FC 100%)',
+        'gradient-card': 'linear-gradient(135deg, #FFFFFF 0%, #F8FCFF 100%)',
+        'gradient-dark': 'linear-gradient(135deg, #082F49 0%, #0C4A6E 50%, #075985 100%)',
+        'gradient-card-dark': 'linear-gradient(135deg, #0C4A6E 0%, #082F49 100%)',
+        'kid-pattern': 'radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.06) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.05) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(56, 189, 248, 0.04) 0%, transparent 40%)',
       },
       fontFamily: {
         sans: [
@@ -109,12 +119,12 @@ const config: Config = {
         "3xl": "2rem",
       },
       boxShadow: {
-        soft: "0 2px 8px rgba(133, 75, 196, 0.15)",
-        "soft-lg": "0 4px 16px rgba(133, 75, 196, 0.2)",
-        "baby": "0 2px 12px rgba(133, 75, 196, 0.18)",
-        "baby-lg": "0 8px 24px rgba(133, 75, 196, 0.22)",
-        "dark": "0 2px 8px rgba(0, 0, 0, 0.3)",
-        "dark-lg": "0 4px 16px rgba(0, 0, 0, 0.4)",
+        soft: "0 2px 8px rgba(14, 165, 233, 0.12)",
+        "soft-lg": "0 4px 20px rgba(14, 165, 233, 0.15)",
+        baby: "0 2px 12px rgba(14, 165, 233, 0.14)",
+        "baby-lg": "0 8px 24px rgba(14, 165, 233, 0.18)",
+        dark: "0 2px 8px rgba(0, 0, 0, 0.25)",
+        "dark-lg": "0 4px 16px rgba(0, 0, 0, 0.35)",
       },
       transitionDuration: {
         "150": "150ms",
