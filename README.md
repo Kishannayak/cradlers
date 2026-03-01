@@ -39,7 +39,6 @@ A modern e-commerce platform for premium kids products (ages 0-5).
 - **[Frontend Setup](./frontend/SETUP.md)** - Frontend installation and configuration
 - **[Backend Setup](./backend/SETUP.md)** - Backend installation and configuration
 - **[MongoDB Setup](./backend/MONGODB_SETUP.md)** - MongoDB installation and configuration
-- **[Deploy (Vercel + Render + Atlas)](./DEPLOY.md)** - Production deployment
 
 ## 🏗️ Architecture
 
