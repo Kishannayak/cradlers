@@ -36,20 +36,21 @@ export function LoginForm() {
   const [error, setError] = useState("");
 
   const handleDevLogin = () => {
-    const role = typeof window !== "undefined" ? getPortalRoleFromHostname(window.location.hostname) : undefined;
-    const user = getDevUser(role);
+    const portal = typeof window !== "undefined" ? getPortalRoleFromHostname(window.location.hostname) : undefined;
+    const role = portal === "admin" ? "ADMIN" : portal === "vendor" ? "VENDOR" : portal === "doctor" ? "DOCTOR" : null;
+    const user = getDevUser(role ?? undefined);
     const token = "dev-token-no-otp";
     setUser(user, token);
     const port = typeof window !== "undefined" ? window.location.port || "3000" : "3000";
-    if (role === "ADMIN") {
+    if (portal === "admin") {
       window.location.href = `http://admin.localhost:${port}/`;
       return;
     }
-    if (role === "VENDOR") {
+    if (portal === "vendor") {
       window.location.href = `http://vendor.localhost:${port}/`;
       return;
     }
-    if (role === "DOCTOR") {
+    if (portal === "doctor") {
       window.location.href = `http://doctor.localhost:${port}/`;
       return;
     }
